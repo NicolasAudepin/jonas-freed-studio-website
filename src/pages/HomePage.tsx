@@ -20,8 +20,8 @@ const HomePage = () => {
       </FullPageCanvas>
       <Hero></Hero>
 
-      <h1 className="fontPix">On va técla ta grand-mère</h1>
-      <h1 className="fontMono">Et manger ton chien</h1>
+      <h1 className="fontPix">On va técla ta grand-mère.</h1>
+      <h1 className="fontMono">Et manger ton chien.</h1>
       <div className="actualContent">
         <h2>
           Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
