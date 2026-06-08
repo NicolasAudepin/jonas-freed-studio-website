@@ -1,0 +1,14 @@
+.canvas3d{
+  /* display: flex; */
+  /* background-color: rgb(101, 83, 61); */
+
+  width: 100px;
+}
+
+.meshtarget{
+  background-color: red;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
+}

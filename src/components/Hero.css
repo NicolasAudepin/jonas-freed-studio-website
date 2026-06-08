@@ -1,0 +1,16 @@
+.JONASFREED {
+  font-family: "Coral Pixels", serif;
+  font-size: 18rem;
+}
+.studio {
+  font-family: "Libertinus Mono", monospace;
+  /* font-family: "Libre Caslon Text", serif; */
+  font-size: 8rem;
+  line-height: 1rem;
+}
+.heroText {
+  /* display: flex; */
+  justify-items: center;
+
+  /* align-items: center; */
+}

@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Libertinus+Mono&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap");
+
+:root {
+  font-family: "Libre Caslon Text", serif;
+  background-color: rgb(255, 255, 255);
+
+  --max-small-width: 320px;
+  --max-phone-width: 767px;
+  --max-tablet-width: 991px;
+}
+.dark-tech-mode {
+  --background-color: rgb(0, 0, 0);
+  --accent-color: rgb(204, 0, 255);
+  --accent2-color: rgb(0, 238, 255);
+  --text-color: rgb(255, 255, 255);
+}
+.light-tech-mode {
+  --background-color: rgb(255, 255, 255);
+  --accent-color: rgb(96, 190, 94);
+  --accent2-color: rgb(54, 161, 52);
+  --text-color: #1b231cff;
+}
+
+.fontReg {
+  font-family: "Libre Caslon Text", serif;
+}
+.fontPix {
+  font-family: "Coral Pixels", serif;
+}
+.fontMono {
+  font-family: "Libertinus Mono", monospace;
+}
+
+h1 {
+  font-size: 5rem;
+  font-family: "Coral Pixels", serif;
+  font-weight: 400;
+}
+h2 {
+  /* font-size: 6rem; */
+  font-family: "Coral Pixels", serif;
+  /* font-family: "Libre Caslon Text", serif; */
+}
+
+/* GLOBALS */
+
+/* REUSABLES */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  overflow: hidden;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.fullpage {
+  width: 100vw;
+  height: 100vh;
+}
+
+.fullscreen {
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  margin-top: 0;
+  margin-left: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.fullparent {
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  margin-top: 0;
+  margin-left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.actualContent {
+  position: relative;
+  max-width: 1280px;
+  margin: 5px auto;
+  padding: 1rem;
+  text-align: center;
+}

@@ -1,0 +1,7 @@
+.passthrough-total {
+  pointer-events: none;
+}
+.fullpagecanvas {
+  /* background-color: beige; */
+  z-index: -1;
+}
