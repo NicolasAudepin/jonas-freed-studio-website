@@ -5,6 +5,10 @@ import RotatingObject from "../components/Object3D";
 import Pin from "../components/Pin3DObject";
 import { SpaceTaker } from "../components/SpaceTaker";
 import { Vector3 } from "three";
+import { DAButton } from "../components/DAContext";
+import { useContext } from "react";
+
+import { Html } from "@react-three/drei";
 
 const HomePage = () => {
   return (
@@ -17,8 +21,10 @@ const HomePage = () => {
           offset={new Vector3(0, -0.045, 0)}
           format="gltf"
         ></RotatingObject>
+
       </FullPageCanvas>
-      <Hero></Hero>
+      <Hero />
+      <DAButton />
 
       <h1 className="fontPix">On va técla ta grand-mère.</h1>
       <h1 className="fontMono">Et manger ton chien.</h1>

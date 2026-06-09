@@ -1,8 +1,12 @@
 import { SpaceTaker } from "../components/SpaceTaker";
 import Pin from "./Pin3DObject";
+import "../index.css";
 import "./Hero.css";
+import { useContext } from "react";
+import { DAContext } from "./DAContext";
 
 const Hero = () => {
+  const { currentDA } = useContext(DAContext);
   return (
     <div>
       <div className="heroText fullpage">

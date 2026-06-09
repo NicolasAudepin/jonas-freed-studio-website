@@ -2,25 +2,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Libertinus+Mono&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap");
 
+.wikiutopist {
+  --background-color: rgb(255, 255, 255);
+  --accent-color: rgb(255, 123, 0);
+  --accent2-color: rgb(0, 238, 255);
+  --text-color: rgb(20, 11, 95);
+  --preferred-font: "Coral Pixels", serif;
+}
+.printedpress {
+  --background-color: rgb(255, 255, 0);
+  --accent-color: rgb(255, 0, 255);
+  --accent2-color: rgb(0, 255, 255);
+  --text-color: rgb(0, 0, 0);
+  --preferred-font: "Libre Caslon Text", serif, serif;
+}
+
 :root {
   font-family: "Libre Caslon Text", serif;
-  background-color: rgb(255, 255, 255);
 
   --max-small-width: 320px;
   --max-phone-width: 767px;
   --max-tablet-width: 991px;
 }
-.dark-tech-mode {
-  --background-color: rgb(0, 0, 0);
-  --accent-color: rgb(204, 0, 255);
-  --accent2-color: rgb(0, 238, 255);
-  --text-color: rgb(255, 255, 255);
-}
-.light-tech-mode {
-  --background-color: rgb(255, 255, 255);
-  --accent-color: rgb(96, 190, 94);
-  --accent2-color: rgb(54, 161, 52);
-  --text-color: #1b231cff;
+
+body {
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 .fontReg {

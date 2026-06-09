@@ -1,9 +1,10 @@
 .JONASFREED {
-  font-family: "Coral Pixels", serif;
-  font-family: "Libre Caslon Text", serif;
+  /* font-family: "Coral Pixels", serif; */
+  font-family: var(--preferred-font);
   font-size: 18rem;
   line-height: 19rem;
 }
+
 .studio {
   font-family: "Libertinus Mono", monospace;
   /* font-family: "Libre Caslon Text", serif; */
@@ -14,4 +15,25 @@
   /* display: flex; */
   justify-items: center;
   align-content: center;
+}
+@media screen and (max-width: 1000px) {
+  .JONASFREED {
+    font-size: 10rem;
+    line-height: 11rem;
+  }
+  .studio {
+    font-size: 3rem;
+    line-height: 5rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .JONASFREED {
+    font-size: 6rem;
+    line-height: 7rem;
+  }
+  .studio {
+    font-size: 3rem;
+    line-height: 5rem;
+  }
 }
