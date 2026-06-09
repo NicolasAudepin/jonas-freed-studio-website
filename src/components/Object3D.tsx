@@ -8,6 +8,11 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import "./Object3D.css";
 
 import { Vector3 } from "three";
+import { useCanvasContext } from "./CanvasContext";
+import { Outlines } from "@react-three/drei";
+import OutlineNode, {
+  outline,
+} from "three/examples/jsm/tsl/display/OutlineNode.js";
 
 function css_to_ThreeHEX(color: string): string {
   if (color.startsWith("rgb")) {
@@ -127,15 +132,27 @@ function Model({
     }
   }
 
-  // loaded_content.traverse((child) => {
-  //   if (child.isMesh || "material_names" in child.userData) {
-  //     setThreeMaterials(child);
-  //   }
-  // });
+  loaded_content.traverse((child) => {
+    if (child.isMesh) {
+      console.log(child);
+    }
+  });
 
   loaded_content.scale.set(scale, scale, scale);
 
-  return <primitive object={loaded_content} ref={objRef} />;
+  return (
+    <primitive object={loaded_content} ref={objRef}></primitive>
+    // <mesh castShadow receiveShadow ref={objRef}>
+    //   <boxGeometry  />
+    //   <meshStandardMaterial color="orange" />
+
+    //   <>
+    //     <Outlines thickness={0.06} color="aquamarine" />
+    //     <Outlines thickness={0.12} color="#177e89" />
+    //     <Outlines thickness={0.2} color="#ff9770" />
+    //   </>
+    // </mesh>
+  );
 }
 
 function RotatingObject({
@@ -143,17 +160,33 @@ function RotatingObject({
   fbx_path,
   scale,
   format,
+  outline = true,
   offset = new Vector3(0, 0, 0),
 }) {
   const meshRef = useRef();
+
+  const { register, unregister } = useCanvasContext();
+
+  useEffect(() => {
+    if (!outline || !meshRef.current) return;
+    register(meshRef);
+    return () => unregister(meshRef);
+  }, [outline, register, unregister]);
+
   const { camera } = useThree();
 
   const targetPosition = useRef(new Vector3(0, 0, 0));
 
-  useFrame((state, delta) => (meshRef.current.rotation.y += delta / 4));
+  useFrame((state, delta) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y += delta / 4;
+    }
+  });
 
   useFrame(() => {
-    meshRef.current.position.lerp(targetPosition.current, 0.9);
+    if (meshRef.current) {
+      meshRef.current.position.lerp(targetPosition.current, 0.9);
+    }
   });
 
   useEffect(() => {
@@ -171,7 +204,6 @@ function RotatingObject({
       const position2D = new Vector3(x, y, 0);
 
       position2D.unproject(camera);
-      const popopo = new Vector3(0, 0, 0);
       const pospos = position2D.add(offset);
 
       targetPosition.current.copy(pospos);

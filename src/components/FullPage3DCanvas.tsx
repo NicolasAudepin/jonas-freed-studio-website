@@ -1,7 +1,7 @@
 import "./FullPage3DCanvas.css";
 import "../index.css";
 import { Canvas } from "@react-three/fiber";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback, useRef } from "react";
 // import * as THREE from "three";
 // import { Box } from "@react-three/drei";
 // import {
@@ -16,14 +16,13 @@ import {
   DotScreen,
   EffectComposer,
   Pixelation,
-  Glitch,
   ChromaticAberration,
   Outline,
 } from "@react-three/postprocessing";
-import { GlitchMode } from "postprocessing";
-import { Vignette } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { DAContext } from "./DAContext";
+import { CanvasContext } from "./CanvasContext";
+import { Box, Outlines } from "@react-three/drei";
 
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
@@ -66,10 +65,11 @@ function CamFov() {
   return <></>;
 }
 
-const PostProcessingDA = () => {
+const PostProcessingDA = ({ refsOutlined }) => {
   const { currentDA } = useContext(DAContext);
+  console.log(refsOutlined);
   return (
-    <EffectComposer>
+    <EffectComposer autoClear>
       {currentDA() == "printedpress" && (
         <DotScreen
           angle={Math.PI * 0.5} // angle of the dot pattern
@@ -82,43 +82,85 @@ const PostProcessingDA = () => {
           offset={[0.02, 0.002]} // color offset
         />
       )}
-      {currentDA() == "wikiutopist" && <Pixelation granularity={20} />}
+      {currentDA() == "datagalore" && <Pixelation granularity={20} />}
 
-      <Outline />
+      {/* {refsOutlined.current && (
+        <Outline
+          // blendFunction={THREE.}
+          selection={refsOutlined.current}
+          width={100}
+          visibleEdgeColor={"#AABBFF"}
+
+        />
+      )} */}
     </EffectComposer>
   );
 };
 
 const FullPageCanvas = (props) => {
+  const refsOutlined = useRef<React.RefObject<THREE.Object3D>[]>([]);
+  const ref = useRef(null);
+  const register = useCallback((ref) => {
+    if (!refsOutlined.current.includes(ref)) {
+      refsOutlined.current.push(ref);
+    }
+    console.log(refsOutlined);
+  }, []);
+
+  const unregister = useCallback((ref) => {
+    refsOutlined.current = refsOutlined.current.filter((r) => r !== ref);
+  }, []);
+
   const { currentDA } = useContext(DAContext);
   return (
-    <Canvas
-      className=" fullpagecanvas passthrough-total"
-      style={{
-        left: "0%",
-        right: "0%",
-        top: "0%",
+    <CanvasContext.Provider value={{ register, unregister }}>
+      <Canvas
+        className=" fullpagecanvas passthrough-total"
+        style={{
+          left: "0%",
+          right: "0%",
+          top: "0%",
 
-        position: "fixed",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-        pointerEvents: "none",
-      }}
-      camera={{ fov: 30 }}
-    >
-      <PostProcessingDA />
-      <CamFov />
-      <ambientLight
-        intensity={currentDA() == "printedpress" ? 2.5 : 1}
-        color={"#ffffff"}
-      />
-      <directionalLight position={[0, -3, 1]} intensity={4} color={"#ff71e7"} />
-      <directionalLight position={[-3, 1, 0]} intensity={5} color={"#00eeff"} />
-      <directionalLight position={[3, 1, 0]} intensity={5} color={"#ff7300"} />
+          position: "fixed",
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+          pointerEvents: "none",
+        }}
+        camera={{ fov: 30 }}
+      >
+        <PostProcessingDA refsOutlined={[ref]} />
+        <CamFov />
 
-      {props.children}
-    </Canvas>
+        <mesh castShadow receiveShadow ref={ref}>
+          <boxGeometry />
+          <meshStandardMaterial color="grey" />
+          <Outlines thickness={50} color="yellow" />
+        </mesh>
+
+        <ambientLight
+          intensity={currentDA() == "printedpress" ? 4 : 1}
+          color={"#ffffff"}
+        />
+        <directionalLight
+          position={[0, -3, 1]}
+          intensity={4}
+          color={"#ff71e7"}
+        />
+        <directionalLight
+          position={[-3, 1, 0]}
+          intensity={5}
+          color={"#00eeff"}
+        />
+        <directionalLight
+          position={[3, 1, 0]}
+          intensity={5}
+          color={"#ff7300"}
+        />
+
+        {props.children}
+      </Canvas>
+    </CanvasContext.Provider>
   );
 };
 

@@ -2,19 +2,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Libertinus+Mono&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap");
 
-.wikiutopist {
+.datagalore {
   --background-color: rgb(255, 255, 255);
   --accent-color: rgb(255, 123, 0);
   --accent2-color: rgb(0, 238, 255);
   --text-color: rgb(20, 11, 95);
   --preferred-font: "Coral Pixels", serif;
 }
+.wikiutopist {
+  --background-color: rgb(255, 255, 255);
+  --accent-color: rgb(255, 0, 191);
+  --accent2-color: rgb(0, 238, 255);
+  --text-color: rgb(20, 11, 95);
+  --preferred-font: "Libre Caslon Text",  serif;
+}
 .printedpress {
   --background-color: rgb(255, 255, 0);
   --accent-color: rgb(255, 0, 255);
   --accent2-color: rgb(0, 255, 255);
   --text-color: rgb(0, 0, 0);
-  --preferred-font: "Libre Caslon Text", serif, serif;
+  --preferred-font: "Libre Caslon Text", serif;
 }
 
 :root {

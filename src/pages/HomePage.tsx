@@ -7,6 +7,7 @@ import { Vector3 } from "three";
 import { DAButton } from "../components/DAContext";
 
 import { LangSelect, TxtLoc } from "../components/LanguageContext";
+import { Outlines } from "@react-three/drei";
 
 const HomePage = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage = () => {
           fbx_path="src/assets/glb/Logo.glb"
           scale={0.06}
           offset={new Vector3(0, -0.045, 0)}
+          outline
           format="gltf"
         ></RotatingObject>
       </FullPageCanvas>
@@ -27,7 +29,7 @@ const HomePage = () => {
       <h1 className="fontPix">
         <TxtLoc
           texts={{
-            EN: "We will técla your grand-mère.",
+            EN: "We will técla your big mama.",
             FR: "On va técla ta grand-mère.",
           }}
         />

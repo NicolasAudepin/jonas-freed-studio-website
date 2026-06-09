@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 const DAContext = createContext(null);
 
-const DAs = ["wikiutopist", "printedpress"];
+const DAs = ["wikiutopist", "datagalore", "printedpress"];
 
 const DAProvider = ({ children }) => {
   const [DAId, setDAId] = useState(0);
