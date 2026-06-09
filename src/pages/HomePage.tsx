@@ -9,8 +9,10 @@ import { DAButton } from "../components/DAContext";
 import { useContext } from "react";
 
 import { Html } from "@react-three/drei";
+import { LangSelect, LangContext, TxtLoc } from "../components/LanguageContext";
 
 const HomePage = () => {
+  const { lang } = useContext(LangContext);
   return (
     <div className="page">
       <FullPageCanvas>
@@ -21,13 +23,27 @@ const HomePage = () => {
           offset={new Vector3(0, -0.045, 0)}
           format="gltf"
         ></RotatingObject>
-
       </FullPageCanvas>
       <Hero />
       <DAButton />
+      <LangSelect />
 
-      <h1 className="fontPix">On va técla ta grand-mère.</h1>
-      <h1 className="fontMono">Et manger ton chien.</h1>
+      <h1 className="fontPix">
+        <TxtLoc
+          texts={{
+            EN: "We will técla your grand-mère.",
+            FR: "On va técla ta grand-mère.",
+          }}
+        />
+      </h1>
+      <h1 className="fontMono">
+        <TxtLoc
+          texts={{
+            EN: "And eat your chien.",
+            FR: "Et manger ton chien.",
+          }}
+        />
+      </h1>
       <div className="actualContent">
         <h2>
           Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
