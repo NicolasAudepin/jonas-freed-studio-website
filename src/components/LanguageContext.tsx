@@ -1,10 +1,4 @@
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  type ReactNode,
-} from "react";
+import { useState, createContext, useContext, type ReactNode } from "react";
 
 const LangContext = createContext(null);
 

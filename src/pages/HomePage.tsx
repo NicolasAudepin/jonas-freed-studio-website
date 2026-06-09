@@ -1,18 +1,14 @@
 import FullPageCanvas from "../components/FullPage3DCanvas";
-import { GLBModel } from "../components/GLBModel";
 import Hero from "../components/Hero";
 import RotatingObject from "../components/Object3D";
 import Pin from "../components/Pin3DObject";
 import { SpaceTaker } from "../components/SpaceTaker";
 import { Vector3 } from "three";
 import { DAButton } from "../components/DAContext";
-import { useContext } from "react";
 
-import { Html } from "@react-three/drei";
-import { LangSelect, LangContext, TxtLoc } from "../components/LanguageContext";
+import { LangSelect, TxtLoc } from "../components/LanguageContext";
 
 const HomePage = () => {
-  const { lang } = useContext(LangContext);
   return (
     <div className="page">
       <FullPageCanvas>
