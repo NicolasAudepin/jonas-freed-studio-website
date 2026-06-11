@@ -32,6 +32,7 @@ function logoBlockWidth() {
   return blockWidth;
 }
 
+// TODO clean fov code
 function CamFov() {
   const [fov, setFov] = useState(20);
   const { camera } = useThree();
@@ -40,11 +41,6 @@ function CamFov() {
     const handleResize = () => {
       const title_angle = Math.PI / 6;
 
-      const cam_dist = (2 * logoBlockWidth()) / Math.tan(title_angle / 2);
-
-      // const ratio =
-      //   Math.tan(title_angle) +
-      //   (window.innerHeight - 4 * logoBlockWidth()) / cam_dist;
       const ratio =
         Math.tan(title_angle) +
         (window.innerHeight / (4 * logoBlockWidth()) - 1) *
@@ -55,6 +51,7 @@ function CamFov() {
       const f = (Math.atan(ratio) * 180) / Math.PI;
       setFov(f);
       console.log(f);
+
       // console.log(ratio);
       camera.fov = f;
     };

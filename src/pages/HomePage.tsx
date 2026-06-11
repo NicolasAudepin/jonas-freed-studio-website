@@ -9,7 +9,7 @@ import { DAButton } from "../components/DAContext";
 import { LangSelect, TxtLoc } from "../components/LanguageContext";
 import { Outlines } from "@react-three/drei";
 import Tablette from "../components/Tablette3D";
-
+// TODO clean section ordering here
 const HomePage = () => {
   return (
     <div className="page">
@@ -22,12 +22,15 @@ const HomePage = () => {
           outline
           format="gltf"
         ></RotatingObject>
-        <Tablette />
+        <Tablette
+          targetSelector1="manifesttop"
+          targetSelector2="manifestbottom"
+        />
       </FullPageCanvas>
       <div className="actualContent">
+        <Hero />
         <DAButton />
         <LangSelect />
-        <Hero />
         <h1 className="fontPix">
           <TxtLoc
             texts={{
@@ -45,7 +48,29 @@ const HomePage = () => {
           />
         </h1>
         <div className="actualContent">
-          <Pin>aadfhdfhdhdraa</Pin>
+          <Pin id="manifesttop" top="0%">
+            X
+          </Pin>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
           <h2>
             Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
             Xx Yy Zz
@@ -69,7 +94,9 @@ const HomePage = () => {
           <div className="fontPix">Hahaha</div>
           <div className="">Hahaha</div>
           <div className="fontPix">Hahaha</div>
-          <Pin>x</Pin>
+          <Pin id="manifestbottom" top="100%">
+            x
+          </Pin>
         </div>
       </div>
     </div>

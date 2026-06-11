@@ -1,7 +1,7 @@
 import "./Pin3DObject.css";
 
 interface PinProps {
-  targetId: string;
+  id: string;
   top?: string;
   left?: string;
   children?;
@@ -10,7 +10,7 @@ interface PinProps {
 export const Pin = (props: PinProps) => {
   return (
     <div
-      id={props.targetId}
+      id={props.id}
       className="meshtarget"
       style={{
         top: props.top ? props.top : "50%",

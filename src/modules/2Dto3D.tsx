@@ -1,9 +1,9 @@
 import { Vector3, Camera } from "three";
 
-export function pinTo3DPosition(targetId: string, camera: Camera) {
-  const targetDiv = document.querySelector(targetId);
+export function pinTo3DPosition(targetId: string, camera: Camera, z = 0) {
+  const targetDiv = document.getElementById(targetId);
   if (!targetDiv) {
-    return;
+    return new Vector3(0, 0, 0);
   }
 
   const rect = targetDiv.getBoundingClientRect();
@@ -13,5 +13,6 @@ export function pinTo3DPosition(targetId: string, camera: Camera) {
   const position = new Vector3(x, y, 0);
 
   position.unproject(camera);
+  // position.setZ(z);
   return position;
 }

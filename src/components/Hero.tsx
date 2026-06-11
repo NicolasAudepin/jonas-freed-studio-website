@@ -12,7 +12,7 @@ const Hero = () => {
       <div className="heroText">
         <div className="JONASFREED">JONAS</div>
         <div className="JONASFREED">
-          <Pin targetId="TitleO" left="50%"></Pin>
+          <Pin id="TitleO" left="50%"></Pin>
           FREED
         </div>
 
