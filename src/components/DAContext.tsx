@@ -57,7 +57,7 @@ const DAButton = () => {
     <button
       onClick={() => {
         rotateDAId();
-        console.log(currentDA());
+        // console.log(currentDA());
       }}
     >
       DA : {currentDA()}

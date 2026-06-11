@@ -1,15 +1,23 @@
+import "./Pin3DObject.css";
+
 interface PinProps {
   targetId: string;
+  top?: string;
+  left?: string;
+  children?;
 }
 
-const Pin = (props: PinProps) => {
+export const Pin = (props: PinProps) => {
   return (
     <div
       id={props.targetId}
       className="meshtarget"
-      style={{ top: "50%" }}
-    ></div>
+      style={{
+        top: props.top ? props.top : "50%",
+        left: props.left ? props.left : "50%",
+      }}
+    >
+      {props.children}
+    </div>
   );
 };
-
-export default Pin;

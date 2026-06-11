@@ -67,7 +67,7 @@ function CamFov() {
 
 const PostProcessingDA = ({ refsOutlined }) => {
   const { currentDA } = useContext(DAContext);
-  console.log(refsOutlined);
+  // console.log(refsOutlined);
   return (
     <EffectComposer autoClear>
       {currentDA() == "printedpress" && (
@@ -104,7 +104,7 @@ const FullPageCanvas = (props) => {
     if (!refsOutlined.current.includes(ref)) {
       refsOutlined.current.push(ref);
     }
-    console.log(refsOutlined);
+    // console.log(refsOutlined);
   }, []);
 
   const unregister = useCallback((ref) => {
@@ -131,12 +131,12 @@ const FullPageCanvas = (props) => {
       >
         <PostProcessingDA refsOutlined={[ref]} />
         <CamFov />
-
+        {/* 
         <mesh castShadow receiveShadow ref={ref}>
           <boxGeometry />
           <meshStandardMaterial color="grey" />
           <Outlines thickness={50} color="yellow" />
-        </mesh>
+        </mesh> */}
 
         <ambientLight
           intensity={currentDA() == "printedpress" ? 4 : 1}

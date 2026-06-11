@@ -14,7 +14,7 @@
   --accent-color: rgb(255, 0, 191);
   --accent2-color: rgb(0, 238, 255);
   --text-color: rgb(20, 11, 95);
-  --preferred-font: "Libre Caslon Text",  serif;
+  --preferred-font: "Libre Caslon Text", serif;
 }
 .printedpress {
   --background-color: rgb(255, 255, 0);
@@ -64,8 +64,7 @@ h2 {
 
 .page {
   display: flex;
-  flex-direction: column;
-  place-items: center;
+
   overflow: hidden;
   min-width: 320px;
   min-height: 100vh;

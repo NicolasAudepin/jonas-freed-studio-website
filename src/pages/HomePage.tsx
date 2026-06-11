@@ -1,13 +1,14 @@
 import FullPageCanvas from "../components/FullPage3DCanvas";
 import Hero from "../components/Hero";
-import RotatingObject from "../components/Object3D";
-import Pin from "../components/Pin3DObject";
+import { RotatingObject } from "../components/Object3D";
+import { Pin } from "../components/Pin3DObject";
 import { SpaceTaker } from "../components/SpaceTaker";
 import { Vector3 } from "three";
 import { DAButton } from "../components/DAContext";
 
 import { LangSelect, TxtLoc } from "../components/LanguageContext";
 import { Outlines } from "@react-three/drei";
+import Tablette from "../components/Tablette3D";
 
 const HomePage = () => {
   return (
@@ -21,51 +22,55 @@ const HomePage = () => {
           outline
           format="gltf"
         ></RotatingObject>
+        <Tablette />
       </FullPageCanvas>
-      <Hero />
-      <DAButton />
-      <LangSelect />
-
-      <h1 className="fontPix">
-        <TxtLoc
-          texts={{
-            EN: "We will técla your big mama.",
-            FR: "On va técla ta grand-mère.",
-          }}
-        />
-      </h1>
-      <h1 className="fontMono">
-        <TxtLoc
-          texts={{
-            EN: "And eat your chien.",
-            FR: "Et manger ton chien.",
-          }}
-        />
-      </h1>
       <div className="actualContent">
-        <h2>
-          Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
-          Xx Yy Zz
-        </h2>
-        <h2>
-          Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
-          Xx Yy Zz
-        </h2>
-        <h2>
-          Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
-          Xx Yy Zz
-        </h2>
-        <h2>
-          Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
-          Xx Yy Zz
-        </h2>
-        <h2>
-          Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
-          Xx Yy Zz
-        </h2>
-        <div className="fontPix">Hahaha</div>
-        <div className="">Hahaha</div>
-        <div className="fontPix">Hahaha</div>
+        <DAButton />
+        <LangSelect />
+        <Hero />
+        <h1 className="fontPix">
+          <TxtLoc
+            texts={{
+              EN: "We will técla your big mama.",
+              FR: "On va técla ta grand-mère.",
+            }}
+          />
+        </h1>
+        <h1 className="fontMono">
+          <TxtLoc
+            texts={{
+              EN: "And eat your chien.",
+              FR: "Et manger ton chien.",
+            }}
+          />
+        </h1>
+        <div className="actualContent">
+          <Pin>aadfhdfhdhdraa</Pin>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <h2>
+            Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww
+            Xx Yy Zz
+          </h2>
+          <div className="fontPix">Hahaha</div>
+          <div className="">Hahaha</div>
+          <div className="fontPix">Hahaha</div>
+          <Pin>x</Pin>
+        </div>
       </div>
     </div>
   );
