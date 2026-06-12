@@ -7,6 +7,7 @@ import { Vector3 } from "three";
 import { TxtLoc } from "../components/LanguageContext";
 import Tablette from "../components/Tablette3D";
 import Section from "../components/Section";
+
 // TODO clean section ordering here
 const HomePage = () => {
   return (
@@ -14,7 +15,7 @@ const HomePage = () => {
       <FullPageCanvas>
         <RotatingObject
           targetSelector="#TitleO"
-          fbx_path="src/assets/glb/Logo.glb"
+          fbx_path={import.meta.env.BASE_URL + "glb/Logo.glb"}
           scale={0.06}
           offset={new Vector3(0, -0.045, 0)}
           outline

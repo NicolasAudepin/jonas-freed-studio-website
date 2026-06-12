@@ -22,7 +22,7 @@ import {
 import { BlendFunction } from "postprocessing";
 import { DAContext } from "./DAContext";
 import { CanvasContext } from "./CanvasContext";
-import { Box, Outlines } from "@react-three/drei";
+import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
 
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
@@ -111,52 +111,75 @@ const FullPageCanvas = (props) => {
   const { currentDA } = useContext(DAContext);
   return (
     <CanvasContext.Provider value={{ register, unregister }}>
-      <Canvas
-        className=" fullpagecanvas passthrough-total"
-        style={{
-          left: "0%",
-          right: "0%",
-          top: "0%",
+      <ErrorBoundary
+        fallbackRender={({ error, resetErrorBoundary }) => (
+          <div
+            role="alert"
+            className="fullpagecanvas passthrough-total"
+            style={{
+              left: "0%",
+              right: "0%",
+              top: "0%",
 
-          position: "fixed",
-          width: "100vw",
-          height: "100vh",
-          overflow: "hidden",
-          pointerEvents: "none",
-        }}
-        camera={{ fov: 30 }}
+              position: "fixed",
+              width: "100vw",
+              height: "100vh",
+              overflow: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            <p>Something went wrong:</p>
+            <pre>{getErrorMessage(error)}</pre>
+          </div>
+        )}
       >
-        <PostProcessingDA refsOutlined={[ref]} />
-        <CamFov />
-        {/* 
+        <Canvas
+          className=" fullpagecanvas passthrough-total"
+          style={{
+            left: "0%",
+            right: "0%",
+            top: "0%",
+
+            position: "fixed",
+            width: "100vw",
+            height: "100vh",
+            overflow: "hidden",
+            pointerEvents: "none",
+          }}
+          camera={{ fov: 30 }}
+        >
+          <PostProcessingDA refsOutlined={[ref]} />
+          <CamFov />
+          {/* 
         <mesh castShadow receiveShadow ref={ref}>
           <boxGeometry />
           <meshStandardMaterial color="grey" />
           <Outlines thickness={50} color="yellow" />
         </mesh> */}
 
-        <ambientLight
-          intensity={currentDA() == "printedpress" ? 4 : 1}
-          color={"#ffffff"}
-        />
-        <directionalLight
-          position={[0, -3, 1]}
-          intensity={4}
-          color={"#ff71e7"}
-        />
-        <directionalLight
-          position={[-3, 1, 0]}
-          intensity={5}
-          color={"#00eeff"}
-        />
-        <directionalLight
-          position={[3, 1, 0]}
-          intensity={5}
-          color={"#ff7300"}
-        />
+          <ambientLight
+            intensity={currentDA() == "printedpress" ? 4 : 1}
+            color={"#ffffff"}
+          />
+          <directionalLight
+            position={[0, -3, 1]}
+            intensity={4}
+            color={"#ff71e7"}
+          />
+          <directionalLight
+            position={[-3, 1, 0]}
+            intensity={5}
+            color={"#00eeff"}
+          />
+          <directionalLight
+            position={[3, 1, 0]}
+            intensity={5}
+            color={"#ff7300"}
+          />
 
-        {props.children}
-      </Canvas>
+          {props.children}
+        </Canvas>
+      </ErrorBoundary>
     </CanvasContext.Provider>
   );
 };
