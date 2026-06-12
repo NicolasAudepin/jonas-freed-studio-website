@@ -8,16 +8,14 @@ import { DAContext } from "./DAContext";
 const Hero = () => {
   const { currentDA } = useContext(DAContext);
   return (
-    <div>
-      <div className="heroText">
-        <div className="JONASFREED">JONAS</div>
-        <div className="JONASFREED">
-          <Pin id="TitleO" left="50%"></Pin>
-          FREED
-        </div>
-
-        <div className="studio">studio</div>
+    <div className="heroText">
+      <div className="JONASFREED">JONAS</div>
+      <div className="JONASFREED">
+        <Pin id="TitleO" left="50%"></Pin>
+        FREED
       </div>
+
+      <div className="studio">studio</div>
     </div>
   );
 };

@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  background-color: var(--background-color);
+  position: fixed;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 1rem;
+  padding-right: 3rem;
+
+  z-index: 2;
+  align-items: end;
+  justify-content: right;
+  overflow: scroll;
+  white-space: nowrap;
+}
