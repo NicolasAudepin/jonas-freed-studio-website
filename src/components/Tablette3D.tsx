@@ -6,8 +6,7 @@ import { pinTo3DPosition } from "../modules/2Dto3D";
 
 function Tablette({ targetSelector1, targetSelector2 }) {
   const meshRef = useRef(null);
-  const fbx_path = "src/assets/glb/Tablettte.glb";
-
+  const fbx_path = import.meta.env.BASE_URL + "glb/Tablettte.glb";
   const loaded_content = useLoader(GLTFLoader, fbx_path).scene;
 
   loaded_content.traverse((child) => {
