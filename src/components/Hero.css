@@ -1,3 +1,11 @@
+.heroText {
+  /* display: flex; */
+  position: relative;
+  justify-items: center;
+  align-content: center;
+  height: 100%;
+}
+
 .JONASFREED {
   /* font-family: "Coral Pixels", serif; */
   font-family: var(--preferred-font);
@@ -11,31 +19,30 @@
   font-size: 7rem;
   line-height: 5rem;
 }
-.heroText {
-  /* display: flex; */
-  position: relative;
-  justify-items: center;
-  align-content: center;
-  height: 100%;
-}
-@media screen and (max-width: 1000px) {
+
+/* --max-small-width: 320px;
+  --max-phone-width: 767px;
+  --max-tablet-width: 991px; */
+
+@media screen and (max-width: 1060px) {
   .JONASFREED {
-    font-size: 10rem;
-    line-height: 11rem;
+    /* font-size: 10rem; */
+    font-size: 25vw;
+    line-height: 27vw;
   }
   .studio {
-    font-size: 3rem;
-    line-height: 5rem;
+    font-size: 10vw;
+    line-height: 8vw;
   }
 }
 
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 620px) {
   .JONASFREED {
-    font-size: 6rem;
+    font-size: 5rem;
     line-height: 7rem;
   }
   .studio {
     font-size: 3rem;
     line-height: 5rem;
   }
-}
+} */

@@ -11,7 +11,7 @@ import Section from "../components/Section";
 // TODO clean section ordering here
 const HomePage = () => {
   return (
-    <div className="page">
+    <div className="page debug">
       <FullPageCanvas>
         <RotatingObject
           targetSelector="#TitleO"
@@ -26,11 +26,10 @@ const HomePage = () => {
           targetSelector2="manifestbottom"
         />
       </FullPageCanvas>
+      <Section height="95vh">
+        <Hero />
+      </Section>
       <div className="actualContent">
-        <Section height="95vh">
-          <Hero />
-        </Section>
-
         <Section>
           <h1 className="fontPix">
             <TxtLoc
@@ -73,11 +72,11 @@ const HomePage = () => {
             *
           </Pin>
         </Section>
-        <Section height="100vh">
+        <Section height="50vh">
           <h1>OUR [ongoing] WORKS</h1>
           <div>J'ai déjà tué un homme. Bientôt, je tue un ours.</div>
         </Section>
-        <Section height="100vh">
+        <Section height="50vh">
           <h1>CONTACTS</h1>
           <div>
             C'est nous qui vous trouverons quand vous vous y attendrez le moins.
