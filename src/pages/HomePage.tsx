@@ -2,12 +2,9 @@ import FullPageCanvas from "../components/FullPage3DCanvas";
 import Hero from "../components/Hero";
 import { RotatingObject } from "../components/Object3D";
 import { Pin } from "../components/Pin3DObject";
-import { SpaceTaker } from "../components/SpaceTaker";
 import { Vector3 } from "three";
-import { DAButton } from "../components/DAContext";
 
-import { LangSelect, TxtLoc } from "../components/LanguageContext";
-import { Outlines } from "@react-three/drei";
+import { TxtLoc } from "../components/LanguageContext";
 import Tablette from "../components/Tablette3D";
 import Section from "../components/Section";
 // TODO clean section ordering here

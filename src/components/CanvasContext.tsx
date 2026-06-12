@@ -1,8 +1,7 @@
-
 import { createContext, useContext } from "react";
-
-type RegisterFn = (ref: React.RefObject<THREE.Object3D>) => void;
-type UnregisterFn = (ref: React.RefObject<THREE.Object3D>) => void;
+import { Object3D } from "three";
+type RegisterFn = (ref: React.RefObject<Object3D>) => void;
+type UnregisterFn = (ref: React.RefObject<Object3D>) => void;
 
 export const CanvasContext = createContext<{
   register: RegisterFn;

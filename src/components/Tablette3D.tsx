@@ -1,17 +1,14 @@
 import { Suspense, useEffect, useRef } from "react";
-import { Model } from "./Object3D";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { Vector3 } from "three";
 import { pinTo3DPosition } from "../modules/2Dto3D";
 
 function Tablette({ targetSelector1, targetSelector2 }) {
-  const meshRef = useRef();
+  const meshRef = useRef(null);
   const fbx_path = "src/assets/glb/Tablettte.glb";
-  let loaded_content;
 
-  loaded_content = useLoader(GLTFLoader, fbx_path).scene;
+  const loaded_content = useLoader(GLTFLoader, fbx_path).scene;
 
   loaded_content.traverse((child) => {
     if (child.isMesh) {
@@ -23,7 +20,7 @@ function Tablette({ targetSelector1, targetSelector2 }) {
   const { camera } = useThree();
   const targetPosition1 = useRef(new Vector3(0, 0, 0));
   const targetPosition2 = useRef(new Vector3(0, 0, 0));
-  
+
   useFrame(() => {
     if (meshRef.current) {
       meshRef.current.position.lerp(targetPosition1.current, 0.93);
