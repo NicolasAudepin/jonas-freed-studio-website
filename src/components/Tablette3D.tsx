@@ -21,19 +21,28 @@ function Tablette({ targetSelector1, targetSelector2 }) {
   });
   loaded_content.scale.set(0.06, 0.06, 0.06);
   const { camera } = useThree();
-  const targetPosition = useRef(new Vector3(0, 0, 0));
+  const targetPosition1 = useRef(new Vector3(0, 0, 0));
+  const targetPosition2 = useRef(new Vector3(0, 0, 0));
+  
   useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.position.lerp(targetPosition.current, 0.93);
+      meshRef.current.position.lerp(targetPosition1.current, 0.93);
+      loaded_content.traverse((child) => {
+        if (child.isMesh) {
+          // console.log(child);
+        }
+      });
     }
   });
 
   function updatePosition() {
-    console.log(targetSelector1);
+    // console.log(targetSelector1);
     if (camera) {
-      const pos: Vector3 = pinTo3DPosition(targetSelector1, camera, 4);
-      console.log(pos);
-      targetPosition.current.copy(pos);
+      const pos1: Vector3 = pinTo3DPosition(targetSelector1, camera, 4);
+      const pos2: Vector3 = pinTo3DPosition(targetSelector2, camera, 4);
+      // console.log(pos);
+      targetPosition1.current.copy(pos1);
+      targetPosition2.current.copy(pos2);
     }
   }
 
