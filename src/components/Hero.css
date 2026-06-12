@@ -3,11 +3,13 @@
   position: relative;
   justify-items: center;
   align-content: center;
-  height: 100%;
+  /* height: 100%; */
+  min-height: 100vh;
 }
 
 .JONASFREED {
   /* font-family: "Coral Pixels", serif; */
+  margin-top: 16vh;
   font-family: var(--preferred-font);
   font-size: 18rem;
   line-height: 19rem;
@@ -18,11 +20,19 @@
   /* font-family: "Libre Caslon Text", serif; */
   font-size: 7rem;
   line-height: 5rem;
+  /* position: absolute; */
 }
 
-/* --max-small-width: 320px;
-  --max-phone-width: 767px;
-  --max-tablet-width: 991px; */
+.motto {
+  /* position: absolute; */
+  padding-top: 6rem;
+  /* position: absolute; */
+
+  /* padding-top: 10rem; */
+  /* bottom: 15rem; */
+  font-size: 3rem;
+  text-align: center;
+}
 
 @media screen and (max-width: 1060px) {
   .JONASFREED {
@@ -34,15 +44,8 @@
     font-size: 10vw;
     line-height: 8vw;
   }
+  .motto {
+    padding-top: 14vw;
+    font-size: 2rem;
+  }
 }
-
-/* @media screen and (max-width: 620px) {
-  .JONASFREED {
-    font-size: 5rem;
-    line-height: 7rem;
-  }
-  .studio {
-    font-size: 3rem;
-    line-height: 5rem;
-  }
-} */

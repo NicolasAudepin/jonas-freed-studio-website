@@ -4,18 +4,30 @@ import "../index.css";
 import "./Hero.css";
 import { useContext } from "react";
 import { DAContext } from "./DAContext";
+import { TxtLoc } from "./LanguageContext";
 
 const Hero = () => {
   const { currentDA } = useContext(DAContext);
   return (
-    <div className="heroText">
-      <div className="JONASFREED">JONAS</div>
-      <div className="JONASFREED">
-        <Pin id="TitleO" left="50%"></Pin>
-        FREED
+    <div className="heroText parent">
+      <Pin id="TitleO" left="50%"></Pin>
+      <SpaceTaker height="3rem" />
+      <div className="JONASFREED scaled">
+        <div>JONAS</div>
+        <div>FREED</div>
       </div>
 
-      <div className="studio">studio</div>
+      <div className="studio scaled">studio</div>
+
+      <SpaceTaker height="3rem" />
+      <div className="motto scaled">
+        <TxtLoc
+          texts={{
+            EN: "Independent Interdisciplinary Timeless",
+            FR: "Indépendant Interdisciplinaire Intemporel",
+          }}
+        />
+      </div>
     </div>
   );
 };
