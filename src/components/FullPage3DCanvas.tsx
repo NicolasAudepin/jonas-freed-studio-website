@@ -111,7 +111,7 @@ const FullPageCanvas = (props) => {
         fallbackRender={({ error, resetErrorBoundary }) => (
           <div
             role="alert"
-            // className="fullpagecanvas passthrough-total"
+            className="fullpagecanvas passthrough-total"
             style={{
               left: "0%",
               right: "0%",
@@ -121,7 +121,7 @@ const FullPageCanvas = (props) => {
               width: "100vw",
               height: "100vh",
               overflow: "hidden",
-              // pointerEvents: "none",
+              pointerEvents: "none",
             }}
           >
             <p>Something went wrong:</p>
@@ -168,7 +168,7 @@ const FullPageCanvas = (props) => {
             color={"#ff7300"}
           />
           {/* <gridHelper position={new Vector3(0, 0, 0)} /> */}
-          <gridHelper position={new Vector3(0, 1, 0)} />
+          {/* <gridHelper position={new Vector3(0, 1, 0)} />
           <gridHelper position={new Vector3(0, -1, 0)} />
           <gridHelper
             position={new Vector3(1, 0, 0)}
@@ -186,7 +186,7 @@ const FullPageCanvas = (props) => {
             rotation={[Math.PI / 2, 0, 0]}
           />
           <cameraHelper args={[camDebug]}></cameraHelper>
-          {/* <axesHelper /> */}
+          <axesHelper /> */}
 
           {props.children}
         </Canvas>

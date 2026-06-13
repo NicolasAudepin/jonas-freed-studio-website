@@ -7,16 +7,16 @@ import { pinTo3DPosition } from "../modules/2Dto3D";
 function Tablette({ targetSelector1, targetSelector2 }) {
   const meshRef = useRef(null);
 
-  const fbx_path = import.meta.env.BASE_URL + "glb/BoneTest.glb";
+  const fbx_path = import.meta.env.BASE_URL + "glb/Tablette.glb";
   const loaded_content = useLoader(GLTFLoader, fbx_path).scene;
-
+  const scale = 0.015;
   loaded_content.traverse((child) => {
     // console.log(child);
-    if (child.name == "Bone") {
-      child.scale.set(0.03, 0.03, 0.03);
+    if (child.name == "BoneTop") {
+      child.scale.set(scale, scale, scale);
     }
-    if (child.name == "Bone001") {
-      child.scale.set(0.03, 0.03, 0.03);
+    if (child.name == "BoneBottom") {
+      child.scale.set(scale, scale, scale);
     }
   });
   const { camera } = useThree();
@@ -24,7 +24,7 @@ function Tablette({ targetSelector1, targetSelector2 }) {
   const targetPosition2 = useRef(new Vector3(0, 0, 0));
 
   useFrame(() => {
-    // updatePosition();
+    updatePosition();
   });
 
   function updatePosition() {
@@ -33,31 +33,25 @@ function Tablette({ targetSelector1, targetSelector2 }) {
       const pos1: Vector3 = pinTo3DPosition({
         targetId: targetSelector1,
         camera: camera,
-        offsetY: -0.18,
+        offsetY: 0.08,
       });
       const pos2: Vector3 = pinTo3DPosition({
         targetId: targetSelector2,
         camera: camera,
+        offsetY: -0.08,
       });
       targetPosition1.current.copy(pos1);
       targetPosition2.current.copy(pos2);
     }
 
     loaded_content.traverse((child) => {
-      // if (child.name == "Torus001") {
-      //   child.position.lerp(targetPosition1.current, 0.93);
-      // }
-      if (child.name == "Bone") {
-        // child.position.lerp(new Vector3(0, 0, 0), 0.93);
+      if (child.name == "BoneTop") {
         child.position.lerp(targetPosition1.current, 0.93);
       }
-      if (child.name == "Bone001") {
+      if (child.name == "BoneBottom") {
         child.position.lerp(targetPosition2.current, 0.93);
-        // child.position.lerp(new Vector3(0, 0, 0), 0.93);
       }
     });
-
-    // console.log(loaded_content);
   }
 
   useEffect(() => {

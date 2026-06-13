@@ -4,6 +4,7 @@ interface PinProps {
   id: string;
   top?: string;
   left?: string;
+  style?;
   children?;
 }
 
@@ -12,10 +13,12 @@ export const Pin = (props: PinProps) => {
     <div
       id={props.id}
       className="meshtarget"
-      style={{
-        top: props.top ? props.top : "50%",
-        left: props.left ? props.left : "50%",
-      }}
+      style={
+        props.style ?? {
+          top: props.top ? props.top : "50%",
+          left: props.left ? props.left : "50%",
+        }
+      }
     >
       {props.children}
     </div>

@@ -32,7 +32,7 @@ export function pinTo3DPosition(props: PinProps): Vector3 {
   position
     .add(offsetC)
     .applyMatrix4(props.camera.projectionMatrixInverse)
-    .normalize()
+    // .normalize()
     .multiplyScalar(props.offsetZ ?? 1)
     .applyMatrix4(props.camera.matrixWorld)
     .add(props.offsetW ?? zero);
