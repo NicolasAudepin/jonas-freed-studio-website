@@ -1,0 +1,15 @@
+.manifestGrid {
+  display: grid;
+  grid-template-columns: 15% auto 15%;
+  width: 100vw;
+}
+.manifestTitle {
+  font-size: 5rem;
+  align-content: center;
+  /* rotate: 90deg; */
+  writing-mode: sideways-rl;
+}
+.manifestStone {
+  display: flex;
+  position: relative;
+}

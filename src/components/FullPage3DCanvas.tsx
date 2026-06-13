@@ -2,15 +2,7 @@ import "./FullPage3DCanvas.css";
 import "../index.css";
 import { Canvas } from "@react-three/fiber";
 import { useState, useEffect, useContext, useCallback, useRef } from "react";
-// import * as THREE from "three";
-// import { Box } from "@react-three/drei";
-// import {
-//   Bloom,
-//   DepthOfField,
-//   EffectComposer,
-//   Noise,
-//   Vignette,
-// } from "@react-three/postprocessing";
+
 import { useThree } from "@react-three/fiber";
 import {
   DotScreen,
@@ -23,6 +15,8 @@ import { BlendFunction } from "postprocessing";
 import { DAContext } from "./DAContext";
 import { CanvasContext } from "./CanvasContext";
 import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
+import { Camera, Vector3 } from "three";
+import { OrbitControls } from "@react-three/drei";
 
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
@@ -34,27 +28,28 @@ function logoBlockWidth() {
 
 // TODO clean fov code
 function CamFov() {
-  const [fov, setFov] = useState(20);
   const { camera } = useThree();
 
+  const handleResize = () => {
+    const title_angle = Math.PI / 6;
+
+    const ratio =
+      Math.tan(title_angle) +
+      (window.innerHeight / (4 * logoBlockWidth()) - 1) *
+        2 *
+        Math.tan(title_angle / 2) *
+        3;
+
+    const f = (Math.atan(ratio) * 180) / Math.PI;
+    // setFov(f);
+    // console.log(f);
+
+    // console.log(ratio);
+    camera.fov = f;
+    return f;
+  };
+  handleResize();
   useEffect(() => {
-    const handleResize = () => {
-      const title_angle = Math.PI / 6;
-
-      const ratio =
-        Math.tan(title_angle) +
-        (window.innerHeight / (4 * logoBlockWidth()) - 1) *
-          2 *
-          Math.tan(title_angle / 2) *
-          3;
-
-      const f = (Math.atan(ratio) * 180) / Math.PI;
-      setFov(f);
-      console.log(f);
-
-      // console.log(ratio);
-      camera.fov = f;
-    };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -107,6 +102,7 @@ const FullPageCanvas = (props) => {
   const unregister = useCallback((ref) => {
     refsOutlined.current = refsOutlined.current.filter((r) => r !== ref);
   }, []);
+  const camDebug = new Camera();
 
   const { currentDA } = useContext(DAContext);
   return (
@@ -115,7 +111,7 @@ const FullPageCanvas = (props) => {
         fallbackRender={({ error, resetErrorBoundary }) => (
           <div
             role="alert"
-            className="fullpagecanvas passthrough-total"
+            // className="fullpagecanvas passthrough-total"
             style={{
               left: "0%",
               right: "0%",
@@ -125,7 +121,7 @@ const FullPageCanvas = (props) => {
               width: "100vw",
               height: "100vh",
               overflow: "hidden",
-              pointerEvents: "none",
+              // pointerEvents: "none",
             }}
           >
             <p>Something went wrong:</p>
@@ -134,7 +130,7 @@ const FullPageCanvas = (props) => {
         )}
       >
         <Canvas
-          className=" fullpagecanvas passthrough-total"
+          // className=" fullpagecanvas passthrough-total"
           style={{
             left: "0%",
             right: "0%",
@@ -144,18 +140,13 @@ const FullPageCanvas = (props) => {
             width: "100vw",
             height: "100vh",
             overflow: "hidden",
-            pointerEvents: "none",
+            // pointerEvents: "none",
           }}
           camera={{ fov: 30 }}
         >
           <PostProcessingDA refsOutlined={[ref]} />
           <CamFov />
-          {/* 
-        <mesh castShadow receiveShadow ref={ref}>
-          <boxGeometry />
-          <meshStandardMaterial color="grey" />
-          <Outlines thickness={50} color="yellow" />
-        </mesh> */}
+          <OrbitControls />
 
           <ambientLight
             intensity={currentDA() == "printedpress" ? 4 : 1}
@@ -176,6 +167,26 @@ const FullPageCanvas = (props) => {
             intensity={5}
             color={"#ff7300"}
           />
+          {/* <gridHelper position={new Vector3(0, 0, 0)} /> */}
+          <gridHelper position={new Vector3(0, 1, 0)} />
+          <gridHelper position={new Vector3(0, -1, 0)} />
+          <gridHelper
+            position={new Vector3(1, 0, 0)}
+            rotation={[0, 0, Math.PI / 2]}
+          />
+          <gridHelper
+            position={new Vector3(-1, 0, 0)}
+            rotation={[0, 0, Math.PI / 2]}
+          />
+          <gridHelper
+            color2="red"
+            color1="red"
+            // args={color}:
+            position={new Vector3(0, 0, -1)}
+            rotation={[Math.PI / 2, 0, 0]}
+          />
+          <cameraHelper args={[camDebug]}></cameraHelper>
+          {/* <axesHelper /> */}
 
           {props.children}
         </Canvas>

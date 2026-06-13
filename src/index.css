@@ -10,7 +10,7 @@
   --preferred-font: "Coral Pixels", serif;
 }
 .wikiutopist {
-  --background-color: rgb(255, 255, 255);
+  --background-color: rgb(241, 239, 252);
   --accent-color: rgb(255, 0, 191);
   --accent2-color: rgb(0, 238, 255);
   --text-color: rgb(20, 11, 95);
@@ -30,6 +30,9 @@
   --max-small-width: 320px;
   --max-phone-width: 767px;
   --max-tablet-width: 991px;
+}
+* {
+  box-sizing: border-box;
 }
 
 body {
