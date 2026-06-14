@@ -19,10 +19,9 @@ const Manifesto = () => {
         </div>
 
         <div className=" manifestText">
-          <WidthActivated max={800} className="manifestTitleSmall ">
+          <WidthActivated max={800}>
             <SpaceTaker height={"4rem"} />
-
-            <div>MANIFESTO</div>
+            <div className="manifestTitle manifestTitleSmall ">MANIFESTO</div>
           </WidthActivated>
           <SVG
             path="../assets/svg/bevel.svg"
@@ -30,7 +29,7 @@ const Manifesto = () => {
             height="4rem"
             transform="rotate(-45deg)"
           />
-            <SpaceTaker height={"4rem"} />
+          <SpaceTaker height={"4rem"} />
 
           <div className="manifestParagraph">
             Déjà on arrive on mange un ours. Ensuite si t'es pas content bah
@@ -68,7 +67,7 @@ const Manifesto = () => {
             de l'image de la colone ici. On l'a pas encore fait. J'ai faim. je
             vais manger. A plus.
           </div>
-            <SpaceTaker height={"4rem"} />
+          <SpaceTaker height={"4rem"} />
 
           <SVG
             path="../assets/svg/bevel.svg"
@@ -76,8 +75,13 @@ const Manifesto = () => {
             height="4rem"
             transform="rotate(135deg)"
           />
-          <WidthActivated max={800} className="manifestTitleSmall ">
-            <div style={{ rotate: "180deg" }}>MANIFESTO</div>
+          <WidthActivated max={800}>
+            <div
+              className=" manifestTitle manifestTitleSmall "
+              style={{ rotate: "180deg" }}
+            >
+              MANIFESTO
+            </div>
             <SpaceTaker height={"4rem"} />
           </WidthActivated>
         </div>

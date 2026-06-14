@@ -12,15 +12,15 @@ const Hero = () => {
     <div className="heroText parent">
       <Pin id="TitleO" left="50%"></Pin>
       <SpaceTaker height="3rem" />
-      <div className="JONASFREED scaled">
+      <div className="JONASFREED ">
         <div>JONAS</div>
         <div>FREED</div>
       </div>
 
-      <div className="studio scaled">studio</div>
+      <div className="studio ">studio</div>
 
       <SpaceTaker height="3rem" />
-      <div className="motto scaled">
+      <div className="motto ">
         <TxtLoc
           texts={{
             EN: "Independent Interdisciplinary Timeless",

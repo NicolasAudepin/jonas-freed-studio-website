@@ -14,6 +14,8 @@
   font-size: 6.4vw;
   align-content: center;
   justify-content: center;
+  font-family: var(--preferred-font);
+
   /* rotate: 90deg; */
   /* writing-mode: sideways-rl; */
 }

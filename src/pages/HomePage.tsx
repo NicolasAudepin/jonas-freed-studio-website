@@ -34,41 +34,8 @@ const HomePage = () => {
         <Hero />
         <Manifesto></Manifesto>
         <div className="actualContent">
-          <Section>
-            <h1 className="fontPix">
-              <TxtLoc
-                texts={{
-                  EN: "Independent Interdisciplinary, Timeless",
-                  FR: "Indépendant Interdisciplinaire Intemporel.",
-                }}
-              />
-            </h1>
-            <h2 className="fontPix">
-              <TxtLoc
-                texts={{
-                  EN: "We will técla your big mama.",
-                  FR: "On va técla ta grand-mère.",
-                }}
-              />
-            </h2>
-            <h2 className="fontMono">
-              <TxtLoc
-                texts={{
-                  EN: "And eat your chien.",
-                  FR: "Et manger ton chien.",
-                }}
-              />
-            </h2>
-          </Section>
-          <Section height="100vh">
-            <h1>MANIFESTO</h1>
-            <div>
-              Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv
-              Ww Xx Yy Zz Jonas Freed Studio c'est ce dont on a besoin pour
-              réaliser nos projets. On veut tout faire mais il faut
-              choisir.ojdrojsfojpmojefpmjofe
-            </div>
-          </Section>
+
+
           <Section height="50vh">
             <h1>OUR [ongoing] WORKS</h1>
             <div>J'ai déjà tué un homme. Bientôt, je tue un ours.</div>

@@ -60,7 +60,8 @@ body {
 
 h1 {
   font-size: 5rem;
-  font-family: "Coral Pixels", serif;
+  font-family: var(--preferred-font);
+
   font-weight: 400;
 }
 
