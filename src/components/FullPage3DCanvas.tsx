@@ -17,35 +17,22 @@ import { CanvasContext } from "./CanvasContext";
 import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
 import { Camera, Vector3 } from "three";
 import { OrbitControls } from "@react-three/drei";
+import { PostProcessingDA } from "./PostpProcessingDA";
 
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
 
-function logoBlockWidth() {
-  const blockWidth = Math.min(window.innerHeight / 4, window.innerWidth / 7);
-  return blockWidth;
-}
-
 // TODO clean fov code
 function CamFov() {
   const { camera } = useThree();
+  const factor = 1;
 
   const handleResize = () => {
-    const title_angle = Math.PI / 6;
+    // const f = Math.atan(window.innerHeight / factor) * (180 / Math.PI);
+    const f = window.innerHeight / 15;
 
-    const ratio =
-      Math.tan(title_angle) +
-      (window.innerHeight / (4 * logoBlockWidth()) - 1) *
-        2 *
-        Math.tan(title_angle / 2) *
-        3;
-
-    const f = (Math.atan(ratio) * 180) / Math.PI;
-    // setFov(f);
-    // console.log(f);
-
-    // console.log(ratio);
     camera.fov = f;
+    console.log(f);
     return f;
   };
   handleResize();
@@ -56,38 +43,6 @@ function CamFov() {
 
   return <></>;
 }
-
-const PostProcessingDA = ({ refsOutlined }) => {
-  const { currentDA } = useContext(DAContext);
-  // console.log(refsOutlined);
-  return (
-    <EffectComposer autoClear>
-      {currentDA() == "printedpress" && (
-        <DotScreen
-          angle={Math.PI * 0.5} // angle of the dot pattern
-          scale={0.2} // scale of the dot pattern
-        />
-      )}
-      {currentDA() == "printedpress" && (
-        <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL} // blend mode
-          offset={[0.02, 0.002]} // color offset
-        />
-      )}
-      {currentDA() == "datagalore" && <Pixelation granularity={20} />}
-
-      {/* {refsOutlined.current && (
-        <Outline
-          // blendFunction={THREE.}
-          selection={refsOutlined.current}
-          width={100}
-          visibleEdgeColor={"#AABBFF"}
-
-        />
-      )} */}
-    </EffectComposer>
-  );
-};
 
 const FullPageCanvas = (props) => {
   const refsOutlined = useRef<React.RefObject<THREE.Object3D>[]>([]);
@@ -142,7 +97,7 @@ const FullPageCanvas = (props) => {
             overflow: "hidden",
             // pointerEvents: "none",
           }}
-          camera={{ fov: 30 }}
+          // camera={{ fov: 30 }}
         >
           <PostProcessingDA refsOutlined={[ref]} />
           <CamFov />

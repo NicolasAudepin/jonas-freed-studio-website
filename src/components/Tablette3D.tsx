@@ -33,12 +33,12 @@ function Tablette({ targetSelector1, targetSelector2 }) {
       const pos1: Vector3 = pinTo3DPosition({
         targetId: targetSelector1,
         camera: camera,
-        offsetY: 0.08,
+        offsetY: -0.2,
       });
       const pos2: Vector3 = pinTo3DPosition({
         targetId: targetSelector2,
         camera: camera,
-        offsetY: -0.08,
+        offsetY: -0.2,
       });
       targetPosition1.current.copy(pos1);
       targetPosition2.current.copy(pos2);

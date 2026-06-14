@@ -17,6 +17,11 @@
   /* rotate: 90deg; */
   /* writing-mode: sideways-rl; */
 }
+@media screen and (min-width: 1400px) {
+  .manifestTitle {
+    font-size: 7rem;
+  }
+}
 .manifestTitleSmall {
   /* display: flex; */
   /* flex-direction: row; */
@@ -29,7 +34,7 @@
 }
 
 .manifestText {
-  font-size: larger;
+  font-size: large;
   border-left: 2px solid;
   border-right: 2px solid;
   padding-left: 3rem;
@@ -43,7 +48,7 @@
 .manifestStone {
   /* display: flex; */
   position: relative;
-  padding: 3rem;
+  padding: 6rem;
 }
 .stikipin {
   position: sticky;

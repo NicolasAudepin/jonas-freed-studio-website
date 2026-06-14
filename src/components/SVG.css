@@ -1,0 +1,14 @@
+.svg-container {
+  /* position: relative; */
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
+.svg-img {
+  height: 100%;
+  width: 100%;
+  fill: var(--accent2-color);
+}
+.svg-img [id*="c-text"] {
+  fill: var(--text-color);
+}

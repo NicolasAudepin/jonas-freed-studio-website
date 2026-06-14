@@ -22,12 +22,15 @@ const WidthActivated: React.FC<WidthActivatedProps> = ({
   className,
 }) => {
   const getInitial = () =>
-    typeof window === "undefined" ? false : within(window.innerWidth, min, max);
+    typeof window === "undefined"
+      ? false
+      : within(document.documentElement.clientWidth, min, max);
   const [active, setActive] = useState<boolean>(getInitial);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const check = () => setActive(within(window.innerWidth, min, max));
+    const check = () =>
+      setActive(within(document.documentElement.clientWidth, min, max));
     window.addEventListener("resize", check);
     check();
     return () => window.removeEventListener("resize", check);
