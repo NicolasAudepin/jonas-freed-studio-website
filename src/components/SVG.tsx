@@ -42,11 +42,17 @@ export const SVG = (props: SVGProps) => {
           height: props.height,
           width: props.width,
           padding: props.padding,
+          transform: props.transform,
         }
       }
     >
-      <svg className="svg-img" transform={props.transform}>
-        <SvgDisplay name={props.path} />
+      <svg className="svg-img">
+        {/* <rect width={10} height={10} fill="red"></rect>
+        <rect width={1} height={1} fill="blue"></rect> */}
+
+        <g>
+          <SvgDisplay name={props.path} />
+        </g>
       </svg>
 
       {/* <img src={props.path} className="svg-img" /> */}

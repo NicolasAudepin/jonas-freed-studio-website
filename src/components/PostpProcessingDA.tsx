@@ -1,6 +1,14 @@
-import { EffectComposer } from "@react-three/postprocessing";
 import { useContext } from "react";
 import { DAContext } from "./DAContext";
+import {
+  DotScreen,
+  EffectComposer,
+  Pixelation,
+  ChromaticAberration,
+  Outline,
+} from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
+
 
 export const PostProcessingDA = ({ refsOutlined }) => {
   const { currentDA } = useContext(DAContext);

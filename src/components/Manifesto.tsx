@@ -28,7 +28,7 @@ const Manifesto = () => {
             path="../assets/svg/bevel.svg"
             padding="3rem"
             height="9rem"
-            transform="rotate(-45)"
+            transform="rotate(-45deg)"
           />
 
           <div className="manifestParagraph">
@@ -71,7 +71,7 @@ const Manifesto = () => {
             path="../assets/svg/bevel.svg"
             padding="3rem"
             height="9rem"
-            transform="rotate(135)"
+            transform="rotate(135deg)"
           />
           <WidthActivated max={800} className="manifestTitleSmall ">
             <div style={{ rotate: "180deg" }}>MANIFESTO</div>

@@ -4,14 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { useState, useEffect, useContext, useCallback, useRef } from "react";
 
 import { useThree } from "@react-three/fiber";
-import {
-  DotScreen,
-  EffectComposer,
-  Pixelation,
-  ChromaticAberration,
-  Outline,
-} from "@react-three/postprocessing";
-import { BlendFunction } from "postprocessing";
+
 import { DAContext } from "./DAContext";
 import { CanvasContext } from "./CanvasContext";
 import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
@@ -122,26 +115,6 @@ const FullPageCanvas = (props) => {
             intensity={5}
             color={"#ff7300"}
           />
-          {/* <gridHelper position={new Vector3(0, 0, 0)} /> */}
-          {/* <gridHelper position={new Vector3(0, 1, 0)} />
-          <gridHelper position={new Vector3(0, -1, 0)} />
-          <gridHelper
-            position={new Vector3(1, 0, 0)}
-            rotation={[0, 0, Math.PI / 2]}
-          />
-          <gridHelper
-            position={new Vector3(-1, 0, 0)}
-            rotation={[0, 0, Math.PI / 2]}
-          />
-          <gridHelper
-            color2="red"
-            color1="red"
-            // args={color}:
-            position={new Vector3(0, 0, -1)}
-            rotation={[Math.PI / 2, 0, 0]}
-          />
-          <cameraHelper args={[camDebug]}></cameraHelper>
-          <axesHelper /> */}
 
           {props.children}
         </Canvas>

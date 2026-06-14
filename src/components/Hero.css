@@ -1,7 +1,7 @@
 .heroText {
   /* display: flex; */
   position: relative;
-  justify-items: center;
+
   align-content: center;
   /* height: 100%; */
   min-height: 100vh;
@@ -9,6 +9,8 @@
 
 .JONASFREED {
   /* font-family: "Coral Pixels", serif; */
+  text-align: center;
+
   margin-top: 16vh;
   font-family: var(--preferred-font);
   font-size: 18rem;
@@ -16,6 +18,8 @@
 }
 
 .studio {
+  text-align: center;
+
   font-family: "Libertinus Mono", monospace;
   /* font-family: "Libre Caslon Text", serif; */
   font-size: 7rem;
