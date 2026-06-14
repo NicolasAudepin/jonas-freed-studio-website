@@ -22,10 +22,10 @@ const HomePage = () => {
           outline
           format="gltf"
         ></RotatingObject>
-        <Tablette
+        {/* <Tablette
           targetSelector1="manifesttop"
           targetSelector2="manifestbottom"
-        />
+        /> */}
       </FullPageCanvas>
       <div
         style={{ pointerEvents: "all" }}

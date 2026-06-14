@@ -5,7 +5,7 @@
 }
 @media screen and (max-width: 800px) {
   .manifestGrid {
-    grid-template-columns: 0% auto 15%;
+    grid-template-columns: 0% auto 0%;
   }
 }
 .manifestTitle {
@@ -25,7 +25,7 @@
 .manifestTitleSmall {
   /* display: flex; */
   /* flex-direction: row; */
-  font-size: 6.4vw;
+  font-size: 8.4vw;
   align-content: center;
   justify-content: center;
   text-align: center;
@@ -37,10 +37,17 @@
   font-size: large;
   border-left: 2px solid;
   border-right: 2px solid;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
   text-align: justify;
 }
+@media screen and (max-width: 500px) {
+  .manifestText {
+    padding-left:  2rem;
+    padding-right: 2rem;
+  }
+}
+
 .manifestParagraph {
   margin-bottom: 1rem;
 }

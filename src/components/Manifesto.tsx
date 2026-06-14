@@ -8,24 +8,28 @@ import WidthActivated from "./WidthActivated";
 const Manifesto = () => {
   return (
     <Section>
-      <SpaceTaker height={"10rem"}></SpaceTaker>
-      <WidthActivated max={800} className="manifestTitleSmall ">
-        <div>MANIFESTO</div>
-        <div style={{ rotate: "180deg" }}>MANIFESTO</div>
-      </WidthActivated>
+      <SpaceTaker height={"10rem"} />
+
       <div className="actualContent manifestGrid ">
         <div className="manifestTitle ">
-          <WidthActivated min={1000} className="manifestTitle ">
+          <WidthActivated min={801} className="manifestTitle ">
             <div style={{ writingMode: "sideways-lr" }}>MANIFESTO</div>
-            <div style={{ writingMode: "sideways-rl" }}>MANIFESTO</div>
-          </WidthActivated>
-          <WidthActivated min={801} max={999} className="manifestTitle ">
-            <div style={{ writingMode: "sideways-lr" }}>MANIFESTO</div>
-            <div style={{ writingMode: "sideways-rl" }}>MANIFESTO</div>
+            {/* <div style={{ writingMode: "sideways-rl" }}>MANIFESTO</div> */}
           </WidthActivated>
         </div>
+
         <div className=" manifestText">
-          <SVG path="../assets/svg/bevel.svg" padding="1rem" height="5rem" transform="rotate(-45)"/>
+          <WidthActivated max={800} className="manifestTitleSmall ">
+            <SpaceTaker height={"4rem"} />
+
+            <div>MANIFESTO</div>
+          </WidthActivated>
+          <SVG
+            path="../assets/svg/bevel.svg"
+            padding="3rem"
+            height="9rem"
+            transform="rotate(-45)"
+          />
 
           <div className="manifestParagraph">
             Déjà on arrive on mange un ours. Ensuite si t'es pas content bah
@@ -63,15 +67,29 @@ const Manifesto = () => {
             de l'image de la colone ici. On l'a pas encore fait. J'ai faim. je
             vais manger. A plus.
           </div>
-          <SVG path="../assets/svg/bevel.svg" padding="1rem" height="5rem" transform="rotate(135)"/>
+          <SVG
+            path="../assets/svg/bevel.svg"
+            padding="3rem"
+            height="9rem"
+            transform="rotate(135)"
+          />
+          <WidthActivated max={800} className="manifestTitleSmall ">
+            <div style={{ rotate: "180deg" }}>MANIFESTO</div>
+            <SpaceTaker height={"4rem"} />
+          </WidthActivated>
         </div>
-        <div className="manifestStone">
-          <div className="stikipin" style={{ top: "15vh" }}>
+        <div className="manifestTitle">
+          <WidthActivated min={801} className="manifestTitle ">
+            {/* <div style={{ writingMode: "sideways-lr" }}>MANIFESTO</div> */}
+            <div style={{ writingMode: "sideways-rl" }}>MANIFESTO</div>
+          </WidthActivated>
+
+          {/* <div className="stikipin" style={{ top: "15vh" }}>
             <Pin id="manifesttop">1</Pin>
           </div>
           <div className="stikipin" style={{ top: "85%" }}>
             <Pin id="manifestbottom">2</Pin>
-          </div>
+          </div> */}
         </div>
       </div>
     </Section>
