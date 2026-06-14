@@ -23,6 +23,13 @@
   --text-color: rgb(0, 0, 0);
   --preferred-font: "Libre Caslon Text", serif;
 }
+.mortouvif {
+  --background-color: rgb(241, 235, 227);
+  --accent-color: rgb(0, 153, 255);
+  --accent2-color: rgb(255, 174, 0);
+  --text-color: rgb(243, 65, 11);
+  --preferred-font: "Libre Caslon Text", serif;
+}
 
 :root {
   font-family: "Libre Caslon Text", serif;

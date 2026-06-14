@@ -26,10 +26,11 @@ const Manifesto = () => {
           </WidthActivated>
           <SVG
             path="../assets/svg/bevel.svg"
-            padding="3rem"
-            height="9rem"
+            padding="0rem"
+            height="4rem"
             transform="rotate(-45deg)"
           />
+            <SpaceTaker height={"4rem"} />
 
           <div className="manifestParagraph">
             Déjà on arrive on mange un ours. Ensuite si t'es pas content bah
@@ -67,10 +68,12 @@ const Manifesto = () => {
             de l'image de la colone ici. On l'a pas encore fait. J'ai faim. je
             vais manger. A plus.
           </div>
+            <SpaceTaker height={"4rem"} />
+
           <SVG
             path="../assets/svg/bevel.svg"
-            padding="3rem"
-            height="9rem"
+            padding="0rem"
+            height="4rem"
             transform="rotate(135deg)"
           />
           <WidthActivated max={800} className="manifestTitleSmall ">

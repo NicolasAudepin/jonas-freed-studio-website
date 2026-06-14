@@ -13,8 +13,12 @@
 
   margin-top: 16vh;
   font-family: var(--preferred-font);
-  font-size: 18rem;
-  line-height: 19rem;
+  font-size: 17rem;
+  line-height: 18.5rem;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  margin-left:  calc(50vw - 32rem);
+  margin-right: calc(50vw - 32rem);
 }
 
 .studio {
@@ -43,6 +47,8 @@
     /* font-size: 10rem; */
     font-size: 25vw;
     line-height: 27vw;
+    margin-left: 3vw;
+    margin-right: 3vw;
   }
   .studio {
     font-size: 10vw;

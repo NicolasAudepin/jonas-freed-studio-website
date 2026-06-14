@@ -5,7 +5,7 @@ import { useState, useEffect, useContext, useCallback, useRef } from "react";
 
 import { useThree } from "@react-three/fiber";
 
-import { DAContext } from "./DAContext";
+import { DAContext, DAProvider } from "./DAContext";
 import { CanvasContext } from "./CanvasContext";
 import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
 import { Camera, Vector3 } from "three";
@@ -52,7 +52,7 @@ const FullPageCanvas = (props) => {
   }, []);
   const camDebug = new Camera();
 
-  const { currentDA } = useContext(DAContext);
+  const { currentDA, getStyleValue } = useContext(DAContext);
   return (
     <CanvasContext.Provider value={{ register, unregister }}>
       <ErrorBoundary
@@ -103,17 +103,17 @@ const FullPageCanvas = (props) => {
           <directionalLight
             position={[0, -3, 1]}
             intensity={4}
-            color={"#ff71e7"}
+            color={getStyleValue("--accent-color")}
           />
           <directionalLight
             position={[-3, 1, 0]}
             intensity={5}
-            color={"#00eeff"}
+            color={getStyleValue("--accent-color")}
           />
           <directionalLight
             position={[3, 1, 0]}
             intensity={5}
-            color={"#ff7300"}
+            color={getStyleValue("--accent2-color")}
           />
 
           {props.children}

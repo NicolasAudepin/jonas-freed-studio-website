@@ -1,13 +1,20 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useLayoutEffect,
+} from "react";
 import { useLocation } from "react-router-dom";
 
 const DAContext = createContext(null);
 
-const DAs = ["wikiutopist", "datagalore", "printedpress"];
+const DAs = ["mortouvif", "wikiutopist", "datagalore", "printedpress"];
 
 const DAProvider = ({ children }) => {
   const [DAId, setDAId] = useState(0);
   const [updating, setUpdating] = useState(false);
+  const [computedStyle, setComputedStyle] = useState();
 
   function rotateDAId() {
     setDAId((DAId + 1) % DAs.length);
@@ -21,6 +28,10 @@ const DAProvider = ({ children }) => {
     return DAs[DAId];
   }
 
+  function getStyleValue(property: string) {
+    return computedStyle?computedStyle.getPropertyValue(property):null;
+  }
+
   function refreshCss() {
     const selectedDA = DAs[DAId];
 
@@ -32,6 +43,11 @@ const DAProvider = ({ children }) => {
       }
     }
   }
+
+  useLayoutEffect(() => {
+    setComputedStyle(window.getComputedStyle(document.body));
+  }, [DAId]);
+
   useEffect(() => {
     refreshCss();
   }, [DAId]);
@@ -44,6 +60,7 @@ const DAProvider = ({ children }) => {
         DAId,
         currentDA,
         updating,
+        getStyleValue,
       }}
     >
       {children}
