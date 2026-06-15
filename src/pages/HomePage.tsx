@@ -8,12 +8,13 @@ import { TxtLoc } from "../components/LanguageContext";
 import Tablette from "../components/Tablette3D";
 import Section from "../components/Section";
 import Manifesto from "../components/Manifesto";
+import { SafeFullPageScene } from "../components/FullPage3dScene";
 
 // TODO clean section ordering here
 const HomePage = () => {
   return (
     <div className="page">
-      <FullPageCanvas>
+      {/* <FullPageCanvas>
         <RotatingObject
           targetSelector="#TitleO"
           fbx_path={import.meta.env.BASE_URL + "glb/Logo.glb"}
@@ -22,20 +23,16 @@ const HomePage = () => {
           outline
           format="gltf"
         ></RotatingObject>
-        {/* <Tablette
-          targetSelector1="manifesttop"
-          targetSelector2="manifestbottom"
-        /> */}
-      </FullPageCanvas>
+ 
+      </FullPageCanvas> */}
+      <SafeFullPageScene />
       <div
-        style={{ pointerEvents: "all" }}
-        // style={{ pointerEvents: "none" }}
+        // style={{ pointerEvents: "all" }}
+        style={{ pointerEvents: "none" }}
       >
         <Hero />
         <Manifesto></Manifesto>
-        <div className="actualContent">
-
-
+        <div className="actualContent ">
           <Section height="50vh">
             <h1>OUR [ongoing] WORKS</h1>
             <div>J'ai déjà tué un homme. Bientôt, je tue un ours.</div>

@@ -77,21 +77,7 @@ const FullPageCanvas = (props) => {
           </div>
         )}
       >
-        <Canvas
-          // className=" fullpagecanvas passthrough-total"
-          style={{
-            left: "0%",
-            right: "0%",
-            top: "0%",
-
-            position: "fixed",
-            width: "100vw",
-            height: "100vh",
-            overflow: "hidden",
-            // pointerEvents: "none",
-          }}
-          // camera={{ fov: 30 }}
-        >
+        <Canvas className=" fullpagecanvas passthrough-total">
           <PostProcessingDA refsOutlined={[ref]} />
           <CamFov />
           <OrbitControls />

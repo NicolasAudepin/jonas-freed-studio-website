@@ -5,6 +5,7 @@
   align-content: center;
   /* height: 100%; */
   min-height: 100vh;
+  pointer-events: none;
 }
 
 .JONASFREED {
@@ -17,11 +18,12 @@
   line-height: 18.5rem;
   border-left: 2px solid;
   border-right: 2px solid;
-  margin-left:  calc(50vw - 32rem);
+  margin-left: calc(50vw - 32rem);
   margin-right: calc(50vw - 32rem);
 }
 
 .studio {
+  /* pointer-events: none; */
   text-align: center;
 
   font-family: "Libertinus Mono", monospace;
