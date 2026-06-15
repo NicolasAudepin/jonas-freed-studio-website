@@ -21,6 +21,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { Perf } from "r3f-perf";
+import { LoadingContext } from "./LoadingContext";
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
 
@@ -28,14 +29,27 @@ export const FullPageScene = (props) => {
   const state = useThree();
 
   const { currentDA, getStyleValue } = useContext(DAContext);
-
+  const { setIsLoading, setProgress } = useContext(LoadingContext);
+  function onProgress(event: ProgressEvent<EventTarget>) {
+    console.log(event);
+    if (event.lengthComputable) {
+      const progress = event.loaded / event.total;
+      setProgress(progress);
+    }
+  }
   let gltf;
   const map3Dobj = {};
-  gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + "glb/Scene3.glb");
+  gltf = useLoader(
+    GLTFLoader,
+    import.meta.env.BASE_URL + "glb/Scene3.glb",
+    null,
+    onProgress,
+  );
   console.log(gltf);
   gltf.scene.traverse((child) => {
     map3Dobj[child.name] = child;
   });
+  setIsLoading(false);
 
   useEffect(() => {
     return () => {

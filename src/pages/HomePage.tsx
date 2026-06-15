@@ -9,6 +9,7 @@ import Tablette from "../components/Tablette3D";
 import Section from "../components/Section";
 import Manifesto from "../components/Manifesto";
 import { SafeFullPageScene } from "../components/FullPage3dScene";
+import LoadingScreen from "../components/LoadingScreen";
 
 // TODO clean section ordering here
 const HomePage = () => {
@@ -26,6 +27,7 @@ const HomePage = () => {
  
       </FullPageCanvas> */}
       <SafeFullPageScene />
+      <LoadingScreen />
       <div
         // style={{ pointerEvents: "all" }}
         style={{ pointerEvents: "none" }}
