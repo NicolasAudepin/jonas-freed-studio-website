@@ -20,6 +20,7 @@ import { PostProcessingDA } from "./PostpProcessingDA";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
+import { Perf } from "r3f-perf";
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
 
@@ -30,35 +31,51 @@ export const FullPageScene = (props) => {
 
   let gltf;
   const map3Dobj = {};
-  gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + "glb/Scene.glb");
+  gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + "glb/Scene3.glb");
+  console.log(gltf);
   gltf.scene.traverse((child) => {
     map3Dobj[child.name] = child;
   });
+
+  useEffect(() => {
+    return () => {
+      cleanupGltf();
+    };
+  }, [gltf]);
 
   useEffect(() => {
     state.set({ camera: map3Dobj["Camera"] });
   }, [gltf.cameras, state.set]);
 
   const { actions, mixer } = useAnimations(gltf.animations, gltf.scene);
-
   const duration = useRef(0);
   const progress = 0;
+
+  // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
     console.log(actions);
-    actions["Cube.007"].reset().play().setLoop(THREE.LoopPingPong, Infinity);
+    actions["Column.003Action"]
+      .reset()
+      .play()
+      .setLoop(THREE.LoopRepeat, Infinity);
+    // eslint-disable-next-line react-hooks/immutability
+    actions["Column.003Action"].timeScale = 0.1;
 
-    actions["Camera"].reset().play().setLoop(THREE.LoopPingPong, Infinity);
-    actions["Camera"].paused = true;
-    duration.current = actions["Camera"].getClip().duration;
+    actions["CameraAction"]
+      .reset()
+      .play()
+      .setLoop(THREE.LoopPingPong, Infinity);
+    actions["CameraAction"].paused = true;
+    duration.current = actions["CameraAction"].getClip().duration;
+    console.log(actions["CameraAction"].getClip().duration);
   }, [actions]);
 
   useFrame(() => {
     const progress =
       window.pageYOffset / (document.body.scrollHeight - innerHeight);
     const time = progress * duration.current;
-    actions["Camera"].time = progress;
+    actions["CameraAction"].time = time;
   });
-
 
   setupLights();
 
@@ -66,13 +83,32 @@ export const FullPageScene = (props) => {
     <>
       {/* <OrbitControls /> */}
       <ambientLight
-        intensity={currentDA() == "printedpress" ? 4 : 3}
+        intensity={currentDA() == "printedpress" ? 0 : 5}
         color={getStyleValue("--background-color")}
       />
       <primitive object={gltf.scene}></primitive>
     </>
   );
 
+  function cleanupGltf() {
+    gltf.scene.traverse((obj) => {
+      if (obj.geometry) obj.geometry.dispose();
+
+      if (obj.material) {
+        const materials = Array.isArray(obj.material)
+          ? obj.material
+          : [obj.material];
+
+        materials.forEach((m) => {
+          m.dispose();
+
+          Object.values(m).forEach((v) => {
+            if (v?.isTexture) v.dispose();
+          });
+        });
+      }
+    });
+  }
   function setupLights() {
     gltf.scene.traverse((child) => {
       if (child.isMesh) {
@@ -87,8 +123,8 @@ export const FullPageScene = (props) => {
     map3Dobj["Point"].intensity = 7;
     map3Dobj["Point"].castShadow = true;
 
-    map3Dobj["Sun005"].color = new Color(getStyleValue("--background-color"));
-    map3Dobj["Point"].color = new Color(getStyleValue("--accent-color"));
+    map3Dobj["Sun005"].color.set(getStyleValue("--background-color"));
+    map3Dobj["Point"].color.set(getStyleValue("--accent-color"));
   }
 };
 
@@ -112,8 +148,8 @@ export function SafeFullPageScene() {
             position: "fixed",
             pointerEvents: "all",
           }}
-          // camera={{ fov: 30 }}
         >
+          {/* <Perf position="bottom-left" /> */}
           <FullPageScene />
         </Canvas>
       </ErrorBoundary>
