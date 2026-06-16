@@ -1,23 +1,82 @@
-import { useContext } from "react";
-import { LoadingContext } from "./LoadingContext";
 import "./LoadingScreen.css";
+import { useProgress } from "@react-three/drei";
+
+import { useEffect, useState } from "react";
+
+function useDelayedProgress(progress) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    let frame;
+
+    const animate = () => {
+      setValue((current) => {
+        const next = current + (progress - current) * 0.08;
+        return Math.abs(progress - next) < 0.5 ? progress : next;
+      });
+
+      frame = requestAnimationFrame(animate);
+    };
+
+    frame = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  }, [progress]); //only request frames when progress is updated so this is not running forever I think
+
+  return value;
+}
 
 const LoadingScreen = () => {
-  const { progress, isLoading } = useContext(LoadingContext);
-  const progressPercent = progress * 100;
-  if (!isLoading) {
-    return <></>;
-  }
+  const { progress } = useProgress();
+  const delayedProgress = useDelayedProgress(progress);
+  const [clicked, setClicked] = useState(false);
+  // if (progress == 100) return <></>;
+  const ready = delayedProgress == 100;
+  const handleClick = () => {
+    setClicked(true);
+  };
+
+  const visible = !ready && !clicked;
+
+  // return <div className="loadingscreen"> ABCD {delayedProgress.toFixed(0)}%</div>;
   return (
     <div className="fullscreen loadingscreen">
       <div className="loading-grid">
-        <div className="loading lr">{progressPercent}%</div>
-        <div className="loading rl">{progressPercent}%</div>
-        <div className="loading lr">{progressPercent}%</div>
-        <div className="loading rl">{progressPercent}%</div>
+        <div
+          className="loading lr"
+          style={{ marginRight: visible ? "0vw" : "52vw" }}
+        >
+          {delayedProgress.toFixed(0)}%
+        </div>
+        <div
+          className="loading rl"
+          style={{ marginLeft: visible ? "0vw" : "52vw" }}
+        >
+          {delayedProgress.toFixed(0)}%
+        </div>
+        <div
+          className="loading lr"
+          style={{ marginRight: visible ? "0vw" : "52vw" }}
+        >
+          {delayedProgress.toFixed(0)}%
+        </div>
+        <div
+          className="loading rl"
+          style={{ marginLeft: visible ? "0vw" : "52vw" }}
+        >
+          {delayedProgress.toFixed(0)}%
+        </div>
       </div>
-      <div className="loading-center">Loading </div>
-      <div className="loading-button">I don't Care </div>
+      {visible && (
+        <>
+          <div className="loading-center">Loading </div>
+          <div className="loading-button" onClick={handleClick}>
+            I don't Care
+          </div>
+        </>
+      )}
     </div>
   );
 };

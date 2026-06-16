@@ -27,7 +27,6 @@ const HomePage = () => {
  
       </FullPageCanvas> */}
       <SafeFullPageScene />
-      <LoadingScreen />
       <div
         // style={{ pointerEvents: "all" }}
         style={{ pointerEvents: "none" }}

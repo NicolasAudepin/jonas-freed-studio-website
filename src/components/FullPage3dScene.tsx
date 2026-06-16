@@ -7,6 +7,7 @@ import {
   useCallback,
   useRef,
   useMemo,
+  Suspense,
 } from "react";
 
 import { useThree } from "@react-three/fiber";
@@ -22,6 +23,7 @@ import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { Perf } from "r3f-perf";
 import { LoadingContext } from "./LoadingContext";
+import LoadingScreen from "./LoadingScreen";
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
 
@@ -29,27 +31,28 @@ export const FullPageScene = (props) => {
   const state = useThree();
 
   const { currentDA, getStyleValue } = useContext(DAContext);
-  const { setIsLoading, setProgress } = useContext(LoadingContext);
-  function onProgress(event: ProgressEvent<EventTarget>) {
-    console.log(event);
-    if (event.lengthComputable) {
-      const progress = event.loaded / event.total;
-      setProgress(progress);
-    }
-  }
+  // const { setIsLoading, setProgress, setset } = useContext(LoadingContext);
+  // function onProgress(event: ProgressEvent<EventTarget>) {
+  //   if (event.lengthComputable) {
+  //     const progress = event.loaded / event.total;
+  //     // setProgress(progress);
+  //     setset(progress);
+  //     console.log(progress);
+  //   }
+  // }
   let gltf;
   const map3Dobj = {};
   gltf = useLoader(
     GLTFLoader,
     import.meta.env.BASE_URL + "glb/Scene3.glb",
     null,
-    onProgress,
+    // onProgress,
   );
   console.log(gltf);
   gltf.scene.traverse((child) => {
     map3Dobj[child.name] = child;
   });
-  setIsLoading(false);
+  // setIsLoading(false);
 
   useEffect(() => {
     return () => {
@@ -67,7 +70,7 @@ export const FullPageScene = (props) => {
 
   // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
-    console.log(actions);
+    // console.log(actions);
     actions["Column.003Action"]
       .reset()
       .play()
@@ -81,7 +84,7 @@ export const FullPageScene = (props) => {
       .setLoop(THREE.LoopPingPong, Infinity);
     actions["CameraAction"].paused = true;
     duration.current = actions["CameraAction"].getClip().duration;
-    console.log(actions["CameraAction"].getClip().duration);
+    // console.log(actions["CameraAction"].getClip().duration);
   }, [actions]);
 
   useFrame(() => {
@@ -153,6 +156,7 @@ export function SafeFullPageScene() {
           </div>
         )}
       >
+        <LoadingScreen />
         <Canvas
           className=" fullpagecanvas "
           style={{
@@ -163,8 +167,10 @@ export function SafeFullPageScene() {
             pointerEvents: "all",
           }}
         >
-          {/* <Perf position="bottom-left" /> */}
-          <FullPageScene />
+          <Suspense>
+            {/* <Perf position="bottom-left" /> */}
+            <FullPageScene />
+          </Suspense>
         </Canvas>
       </ErrorBoundary>
     </CanvasContext.Provider>

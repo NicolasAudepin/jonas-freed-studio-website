@@ -1,13 +1,6 @@
 .loadingscreen {
   display: flex;
-  background-color: color-mix(
-    in oklab,
-    var(--background-color) 80%,
-    rgba(255, 255, 255, 0)
-  );
-  /* background-color: pink; */
 
-  backdrop-filter: blur(5px);
   z-index: 10;
   justify-content: center;
 }
@@ -27,6 +20,16 @@
   border-left: 2px solid;
   border-right: 2px solid;
   width: 50vw;
+  background-color: color-mix(
+    in oklab,
+    var(--background-color) 10%,
+    rgba(255, 255, 255, 0)
+  );
+  /* background-color: pink; */
+
+  backdrop-filter: blur(5px);
+  transition: margin-right 2s;
+  transition: margin-left 2s;
 }
 .loading-center {
   font-size: 5rem;
@@ -46,7 +49,6 @@
   top: 65vh;
   /* width: 100%; */
   border: 2px solid;
-  border-radius: 1rem;
   padding: 0.5rem;
   /* border-bottom: 2px solid; */
   background-color: var(--background-color);
@@ -55,4 +57,14 @@
 .loading-grid {
   display: grid;
   grid-template-columns: auto auto;
+}
+
+.loading2 {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: black;
+  color: white;
+  z-index: 10;
 }

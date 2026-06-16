@@ -10,9 +10,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <DAProvider>
       <LangProvider>
-        <LoadingProvider>
-          <HomePage />
-        </LoadingProvider>
+        {/* <LoadingProvider> */}
+        <HomePage />
+        {/* </LoadingProvider> */}
         <NavBar />
         <HomePage />
       </LangProvider>

@@ -12,11 +12,18 @@ const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [progress, setProgress] = React.useState(0);
 
+  function setset(p: number) {
+    console.log("setset", p);
+    setProgress(p);
+    console.log("setset pr", progress);
+  }
+
   return (
     <LoadingContext.Provider
       value={{
         isLoading,
         setIsLoading,
+        setset,
         progress,
         setProgress,
       }}
