@@ -22,7 +22,6 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { Perf } from "r3f-perf";
-import { LoadingContext } from "./LoadingContext";
 import LoadingScreen from "./LoadingScreen";
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
@@ -147,7 +146,7 @@ export const FullPageScene = (props) => {
 
 export function SafeFullPageScene() {
   return (
-    <CanvasContext.Provider>
+    // <CanvasContext.Provider>
       <ErrorBoundary
         fallbackRender={({ error, resetErrorBoundary }) => (
           <div role="alert" className="fullpagecanvas">
@@ -173,6 +172,6 @@ export function SafeFullPageScene() {
           </Suspense>
         </Canvas>
       </ErrorBoundary>
-    </CanvasContext.Provider>
+    //</CanvasContext.Provider> 
   );
 }

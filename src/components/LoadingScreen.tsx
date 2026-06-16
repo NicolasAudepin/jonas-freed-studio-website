@@ -1,15 +1,17 @@
 import "./LoadingScreen.css";
 import { useProgress } from "@react-three/drei";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function useDelayedProgress(progress) {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
     let frame;
+    let running = true;
 
     const animate = () => {
+      if (!running) return;
       setValue((current) => {
         const next = current + (progress - current) * 0.08;
         return Math.abs(progress - next) < 0.5 ? progress : next;
@@ -21,6 +23,7 @@ function useDelayedProgress(progress) {
     frame = requestAnimationFrame(animate);
 
     return () => {
+      running = false;
       cancelAnimationFrame(frame);
     };
   }, [progress]); //only request frames when progress is updated so this is not running forever I think
@@ -29,6 +32,8 @@ function useDelayedProgress(progress) {
 }
 
 const LoadingScreen = () => {
+  const id = useRef(Math.random().toString(36).slice(2));
+  console.log("LoadingScreen render", id.current);
   const { progress } = useProgress();
   const delayedProgress = useDelayedProgress(progress);
   const [clicked, setClicked] = useState(false);
@@ -37,6 +42,14 @@ const LoadingScreen = () => {
   const handleClick = () => {
     setClicked(true);
   };
+
+  useEffect(() => {
+    console.log("mounted", id.current);
+
+    return () => {
+      console.log("unmounted", id.current);
+    };
+  }, []);
 
   const visible = !ready && !clicked;
 
