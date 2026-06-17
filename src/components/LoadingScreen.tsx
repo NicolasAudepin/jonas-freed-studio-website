@@ -33,56 +33,72 @@ function useDelayedProgress(progress) {
 
 const LoadingScreen = () => {
   const id = useRef(Math.random().toString(36).slice(2));
-  console.log("LoadingScreen render", id.current);
-  const { progress } = useProgress();
+  // console.log("LoadingScreen render", id.current);
+
+  const { progress, loaded, total } = useProgress();
+  console.log(useProgress());
+  const dlProgress = loaded;
+
   const delayedProgress = useDelayedProgress(progress);
-  const [clicked, setClicked] = useState(false);
-  // if (progress == 100) return <></>;
   const ready = delayedProgress == 100;
+
+  const [clicked, setClicked] = useState(false);
+
+  const [rendered, setRendered] = useState(true);
+
+  // if (progress == 100) return <></>;
   const handleClick = () => {
     setClicked(true);
   };
 
+  // useEffect(() => {
+  //   console.log("mounted", id.current);
+
+  //   return () => {
+  //     console.log("unmounted", id.current);
+  //   };
+  // }, []);
+
   useEffect(() => {
-    console.log("mounted", id.current);
+    if (ready || clicked) {
+      setTimeout(() => {
+        setRendered(false);
+      }, 1000);
+    }
+  }, [ready, clicked]);
 
-    return () => {
-      console.log("unmounted", id.current);
-    };
-  }, []);
+  const open = !ready && !clicked;
 
-  const visible = !ready && !clicked;
-
-  // return <div className="loadingscreen"> ABCD {delayedProgress.toFixed(0)}%</div>;
+  if (!rendered) return <></>;
   return (
     <div className="fullscreen loadingscreen">
       <div className="loading-grid">
         <div
           className="loading lr"
-          style={{ marginRight: visible ? "0vw" : "52vw" }}
+          style={{ marginRight: open ? "0vw" : "52vw" }}
         >
-          {delayedProgress.toFixed(0)}%
+          {dlProgress.toFixed(0)}/{total}
         </div>
         <div
           className="loading rl"
-          style={{ marginLeft: visible ? "0vw" : "52vw" }}
+          style={{ marginLeft: open ? "0vw" : "52vw" }}
         >
           {delayedProgress.toFixed(0)}%
         </div>
         <div
           className="loading lr"
-          style={{ marginRight: visible ? "0vw" : "52vw" }}
+          style={{ marginRight: open ? "0vw" : "52vw" }}
         >
           {delayedProgress.toFixed(0)}%
         </div>
         <div
           className="loading rl"
-          style={{ marginLeft: visible ? "0vw" : "52vw" }}
+          style={{ marginLeft: open ? "0vw" : "52vw" }}
         >
-          {delayedProgress.toFixed(0)}%
+          {dlProgress.toFixed(0)}/{total}
         </div>
       </div>
-      {visible && (
+      {open && (
         <>
           <div className="loading-center">Loading </div>
           <div className="loading-button" onClick={handleClick}>

@@ -1,5 +1,5 @@
 import "./FullPage3DCanvas.css";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, type ObjectMap } from "@react-three/fiber";
 import {
   useState,
   useEffect,
@@ -18,7 +18,7 @@ import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
 import { Camera, Color, Vector3 } from "three";
 import { OrbitControls, useAnimations } from "@react-three/drei";
 import { PostProcessingDA } from "./PostpProcessingDA";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { Perf } from "r3f-perf";
@@ -26,36 +26,45 @@ import LoadingScreen from "./LoadingScreen";
 // import { logoBlockWidth } from "./Title";
 // import { Children } from "react"
 
-export const FullPageScene = (props) => {
+// Custom loading manager for download progress
+
+function cleanupGltf(gltf: GLTF & ObjectMap) {
+  gltf.scene.traverse((obj) => {
+    if (obj.geometry) obj.geometry.dispose();
+
+    if (obj.material) {
+      const materials = Array.isArray(obj.material)
+        ? obj.material
+        : [obj.material];
+
+      materials.forEach((m) => {
+        m.dispose();
+
+        Object.values(m).forEach((v) => {
+          if (v?.isTexture) v.dispose();
+        });
+      });
+    }
+  });
+}
+
+const CameraGlb = () => {
   const state = useThree();
 
-  const { currentDA, getStyleValue } = useContext(DAContext);
-  // const { setIsLoading, setProgress, setset } = useContext(LoadingContext);
-  // function onProgress(event: ProgressEvent<EventTarget>) {
-  //   if (event.lengthComputable) {
-  //     const progress = event.loaded / event.total;
-  //     // setProgress(progress);
-  //     setset(progress);
-  //     console.log(progress);
-  //   }
-  // }
-  let gltf;
   const map3Dobj = {};
-  gltf = useLoader(
+  // //this works
+  const gltf = useLoader(
     GLTFLoader,
-    import.meta.env.BASE_URL + "glb/Scene3.glb",
-    null,
-    // onProgress,
+    import.meta.env.BASE_URL + "glb/Scene1/Camgroup.glb",
   );
-  console.log(gltf);
+
   gltf.scene.traverse((child) => {
     map3Dobj[child.name] = child;
   });
-  // setIsLoading(false);
 
   useEffect(() => {
     return () => {
-      cleanupGltf();
+      cleanupGltf(gltf);
     };
   }, [gltf]);
 
@@ -63,27 +72,17 @@ export const FullPageScene = (props) => {
     state.set({ camera: map3Dobj["Camera"] });
   }, [gltf.cameras, state.set]);
 
-  const { actions, mixer } = useAnimations(gltf.animations, gltf.scene);
+  const { actions } = useAnimations(gltf.animations, gltf.scene);
   const duration = useRef(0);
-  const progress = 0;
 
   // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
-    // console.log(actions);
-    actions["Column.003Action"]
-      .reset()
-      .play()
-      .setLoop(THREE.LoopRepeat, Infinity);
-    // eslint-disable-next-line react-hooks/immutability
-    actions["Column.003Action"].timeScale = 0.1;
-
     actions["CameraAction"]
       .reset()
       .play()
       .setLoop(THREE.LoopPingPong, Infinity);
     actions["CameraAction"].paused = true;
     duration.current = actions["CameraAction"].getClip().duration;
-    // console.log(actions["CameraAction"].getClip().duration);
   }, [actions]);
 
   useFrame(() => {
@@ -93,38 +92,32 @@ export const FullPageScene = (props) => {
     actions["CameraAction"].time = time;
   });
 
-  setupLights();
+  return <primitive object={gltf.scene} />;
+};
 
-  return (
-    <>
-      {/* <OrbitControls /> */}
-      <ambientLight
-        intensity={currentDA() == "printedpress" ? 0 : 5}
-        color={getStyleValue("--background-color")}
-      />
-      <primitive object={gltf.scene}></primitive>
-    </>
+const LightsGlb = () => {
+  const state = useThree();
+
+  const { currentDA, getStyleValue } = useContext(DAContext);
+
+  const map3Dobj = {};
+  // //this works
+  let gltf;
+  gltf = useLoader(
+    GLTFLoader,
+    import.meta.env.BASE_URL + "glb/Scene1/Lights.glb",
   );
 
-  function cleanupGltf() {
-    gltf.scene.traverse((obj) => {
-      if (obj.geometry) obj.geometry.dispose();
+  gltf.scene.traverse((child) => {
+    map3Dobj[child.name] = child;
+  });
 
-      if (obj.material) {
-        const materials = Array.isArray(obj.material)
-          ? obj.material
-          : [obj.material];
+  useEffect(() => {
+    return () => {
+      cleanupGltf(gltf);
+    };
+  }, [gltf]);
 
-        materials.forEach((m) => {
-          m.dispose();
-
-          Object.values(m).forEach((v) => {
-            if (v?.isTexture) v.dispose();
-          });
-        });
-      }
-    });
-  }
   function setupLights() {
     gltf.scene.traverse((child) => {
       if (child.isMesh) {
@@ -142,36 +135,96 @@ export const FullPageScene = (props) => {
     map3Dobj["Sun005"].color.set(getStyleValue("--background-color"));
     map3Dobj["Point"].color.set(getStyleValue("--accent-color"));
   }
+  setupLights();
+
+  return (
+    <>
+      <ambientLight
+        intensity={currentDA() == "printedpress" ? 0 : 5}
+        color={getStyleValue("--background-color")}
+      />
+      <primitive object={gltf.scene} />
+    </>
+  );
+};
+const StaticGlb = ({ path }) => {
+  const gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + path);
+
+  useEffect(() => {
+    return () => {
+      cleanupGltf(gltf);
+    };
+  }, [gltf]);
+
+  return <primitive object={gltf.scene} />;
+};
+
+const LogoGlb = () => {
+  const state = useThree();
+
+  const map3Dobj = {};
+  // //this works
+  let gltf;
+  gltf = useLoader(
+    GLTFLoader,
+    import.meta.env.BASE_URL + "glb/Scene1/Logo.glb",
+  );
+
+  gltf.scene.traverse((child) => {
+    map3Dobj[child.name] = child;
+  });
+
+  useEffect(() => {
+    return () => {
+      cleanupGltf(gltf);
+    };
+  }, [gltf]);
+
+  const { actions } = useAnimations(gltf.animations, gltf.scene);
+
+  // eslint-disable-next-line react-hooks/immutability
+  useEffect(() => {
+    actions["Column.003Action"]
+      .reset()
+      .play()
+      .setLoop(THREE.LoopRepeat, Infinity);
+    // eslint-disable-next-line react-hooks/immutability
+    actions["Column.003Action"].timeScale = 0.1;
+  }, [actions]);
+
+  return <primitive object={gltf.scene}></primitive>;
 };
 
 export function SafeFullPageScene() {
   return (
-    // <CanvasContext.Provider>
-      <ErrorBoundary
-        fallbackRender={({ error, resetErrorBoundary }) => (
-          <div role="alert" className="fullpagecanvas">
-            <p>Something went wrong:</p>
-            <pre>{getErrorMessage(error)}</pre>
-          </div>
-        )}
+    <ErrorBoundary
+      fallbackRender={({ error, resetErrorBoundary }) => (
+        <div role="alert" className="fullpagecanvas">
+          <p>Something went wrong:</p>
+          <pre>{getErrorMessage(error)}</pre>
+        </div>
+      )}
+    >
+      <LoadingScreen />
+      <Canvas
+        className=" fullpagecanvas "
+        style={{
+          left: "0%",
+          right: "0%",
+          top: "0%",
+          position: "fixed",
+          pointerEvents: "all",
+        }}
       >
-        <LoadingScreen />
-        <Canvas
-          className=" fullpagecanvas "
-          style={{
-            left: "0%",
-            right: "0%",
-            top: "0%",
-            position: "fixed",
-            pointerEvents: "all",
-          }}
-        >
-          <Suspense>
-            {/* <Perf position="bottom-left" /> */}
-            <FullPageScene />
-          </Suspense>
-        </Canvas>
-      </ErrorBoundary>
-    //</CanvasContext.Provider> 
+        <Suspense>
+          {/* <Perf position="bottom-left" /> */}
+          <CameraGlb />
+          <LogoGlb />
+          <LightsGlb />
+          <StaticGlb path="glb/Scene1/blocks.glb" />
+          <StaticGlb path="glb/Scene1/Trees.glb" />
+        </Suspense>
+      </Canvas>
+    </ErrorBoundary>
   );
 }

@@ -7,13 +7,11 @@ import { LangProvider } from "./components/LanguageContext.tsx";
 import { NavBar } from "./components/NavBar.tsx";
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
-    <DAProvider>
-      <LangProvider>
-        <HomePage />
-        <NavBar />
-        <HomePage />
-      </LangProvider>
-    </DAProvider>
+  <DAProvider>
+    <LangProvider>
+      <HomePage />
+      <NavBar />
+    </LangProvider>
+  </DAProvider>,
   // </StrictMode>
-  ,
 );
