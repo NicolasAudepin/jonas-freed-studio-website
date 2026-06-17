@@ -100,7 +100,7 @@ const LoadingScreen = () => {
           {delayedProgress.toFixed(0)}%
         </div>
         <div
-          className="loading-tile loading-bigfont "
+          className="loading-tile loading-bigfont upperline"
           style={{ marginLeft: open ? "0vw" : "72vw" }}
         >
           {dlProgress.toFixed(0)}/{total}
