@@ -1,11 +1,10 @@
 import "./FullPage3DCanvas.css";
-import { Canvas, useFrame, type ObjectMap } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import {
   useState,
   useEffect,
   useContext,
   useCallback,
-  useRef,
   useMemo,
   Suspense,
 } from "react";
@@ -18,88 +17,13 @@ import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
 import { Camera, Color, Vector3 } from "three";
 import { OrbitControls, useAnimations } from "@react-three/drei";
 import { PostProcessingDA } from "./PostpProcessingDA";
-import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { Perf } from "r3f-perf";
 import LoadingScreen from "./LoadingScreen";
-// import { logoBlockWidth } from "./Title";
-// import { Children } from "react"
-
-// Custom loading manager for download progress
-
-function cleanupGltf(gltf: GLTF & ObjectMap) {
-  gltf.scene.traverse((obj) => {
-    if (obj.geometry) obj.geometry.dispose();
-
-    if (obj.material) {
-      const materials = Array.isArray(obj.material)
-        ? obj.material
-        : [obj.material];
-
-      materials.forEach((m) => {
-        m.dispose();
-
-        Object.values(m).forEach((v) => {
-          if (v?.isTexture) v.dispose();
-        });
-      });
-    }
-  });
-}
-
-const CameraGlb = () => {
-  const state = useThree();
-
-  const map3Dobj = {};
-  // //this works
-  const gltf = useLoader(
-    GLTFLoader,
-    import.meta.env.BASE_URL + "glb/Scene1/Camgroup.glb",
-  );
-
-  gltf.scene.traverse((child) => {
-    map3Dobj[child.name] = child;
-  });
-
-  useEffect(() => {
-    return () => {
-      cleanupGltf(gltf);
-    };
-  }, [gltf]);
-
-  useEffect(() => {
-    const camera = map3Dobj["Camera"];
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    state.set({ camera });
-
-    // state.set({ camera: map3Dobj["Camera"] });
-    
-  }, [gltf.cameras, state.set]);
-
-  const { actions } = useAnimations(gltf.animations, gltf.scene);
-  const duration = useRef(0);
-
-  // eslint-disable-next-line react-hooks/immutability
-  useEffect(() => {
-    actions["CameraAction"]
-      .reset()
-      .play()
-      .setLoop(THREE.LoopPingPong, Infinity);
-    actions["CameraAction"].paused = true;
-    duration.current = actions["CameraAction"].getClip().duration;
-  }, [actions]);
-
-  useFrame(() => {
-    const progress =
-      window.pageYOffset / (document.body.scrollHeight - innerHeight);
-    const time = progress * duration.current;
-    actions["CameraAction"].time = time;
-  });
-
-  return <primitive object={gltf.scene} />;
-};
+import { cleanupGltf } from "../modules/cleanupGltf";
+import { CameraGlb } from "./CameraGlb";
 
 const LightsGlb = () => {
   const state = useThree();
@@ -125,28 +49,20 @@ const LightsGlb = () => {
   }, [gltf]);
 
   function setupLights() {
-    gltf.scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
     state.gl.shadowMap.enabled = true;
 
     map3Dobj["Sun005"].intensity = 7;
     map3Dobj["Sun005"].castShadow = true;
-    map3Dobj["Point"].intensity = 7;
-    map3Dobj["Point"].castShadow = true;
 
     map3Dobj["Sun005"].color.set(getStyleValue("--background-color"));
-    map3Dobj["Point"].color.set(getStyleValue("--accent-color"));
+    // map3Dobj["Point"].color.set(getStyleValue("--accent-color"));
   }
   setupLights();
 
   return (
     <>
       <ambientLight
-        intensity={currentDA() == "printedpress" ? 0 : 5}
+        intensity={currentDA() == "printedpress" ? 0 : 4}
         color={getStyleValue("--background-color")}
       />
       <primitive object={gltf.scene} />
@@ -155,6 +71,12 @@ const LightsGlb = () => {
 };
 const StaticGlb = ({ path }) => {
   const gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + path);
+  gltf.scene.traverse((child) => {
+    if (child.isMesh) {
+      child.castShadow = true;
+      child.receiveShadow = true;
+    }
+  });
 
   useEffect(() => {
     return () => {
@@ -228,6 +150,7 @@ export function SafeFullPageScene() {
           <LogoGlb />
           <LightsGlb />
           <StaticGlb path="glb/Scene1/blocks.glb" />
+          <StaticGlb path="glb/Scene1/Basil.glb" />
           <StaticGlb path="glb/Scene1/Trees.glb" />
         </Suspense>
       </Canvas>

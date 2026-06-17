@@ -37,7 +37,6 @@ const LoadingScreen = () => {
   // console.log("LoadingScreen render", id.current);
 
   const { progress, loaded, total } = useProgress();
-  console.log(useProgress());
   const dlProgress = loaded;
 
   const delayedProgress = useDelayedProgress(progress);
