@@ -2,6 +2,7 @@ import "./LoadingScreen.css";
 import { useProgress } from "@react-three/drei";
 
 import { useEffect, useRef, useState } from "react";
+import { SVG } from "./SVG";
 
 function useDelayedProgress(progress) {
   const [value, setValue] = useState(0);
@@ -32,7 +33,7 @@ function useDelayedProgress(progress) {
 }
 
 const LoadingScreen = () => {
-  const id = useRef(Math.random().toString(36).slice(2));
+  // const id = useRef(Math.random().toString(36).slice(2));
   // console.log("LoadingScreen render", id.current);
 
   const { progress, loaded, total } = useProgress();
@@ -74,35 +75,56 @@ const LoadingScreen = () => {
     <div className="fullscreen loadingscreen">
       <div className="loading-grid">
         <div
-          className="loading lr"
+          className="loading-tile loading-bigfont lr"
           style={{ marginRight: open ? "0vw" : "52vw" }}
         >
           {dlProgress.toFixed(0)}/{total}
         </div>
         <div
-          className="loading rl"
-          style={{ marginLeft: open ? "0vw" : "52vw" }}
+          className="loading-tile loading-description"
+          style={{ marginLeft: open ? "0vw" : "72vw" }}
         >
-          {delayedProgress.toFixed(0)}%
+          Loading 3D Scene for visual style. You can skip this if you don't
+          care. But it will look nice.
+          <div className="upperline">
+            Donwloaded :{dlProgress.toFixed(0)}/{total}
+          </div>
+          <div className="upperline">
+            Activated :{delayedProgress.toFixed(0)}%
+          </div>
         </div>
         <div
-          className="loading lr"
+          className="loading-tile loading-bigfont lr"
           style={{ marginRight: open ? "0vw" : "52vw" }}
         >
           {delayedProgress.toFixed(0)}%
         </div>
         <div
-          className="loading rl"
-          style={{ marginLeft: open ? "0vw" : "52vw" }}
+          className="loading-tile loading-bigfont "
+          style={{ marginLeft: open ? "0vw" : "72vw" }}
         >
           {dlProgress.toFixed(0)}/{total}
         </div>
       </div>
       {open && (
         <>
-          <div className="loading-center">Loading </div>
-          <div className="loading-button" onClick={handleClick}>
-            I don't Care
+          <div className="loading-center">Loading... </div>
+          <div className="loading-overbutton" onClick={handleClick}>
+            <div className="loading-button">
+              {/* <SVG
+                path="../assets/svg/bevel.svg"
+                padding="0.5rem"
+                height="3rem"
+                transform="rotate(-45deg)"
+              /> */}
+              <div>I don't Care</div>
+              {/* <SVG
+                path="../assets/svg/bevel.svg"
+                padding="0.5rem"
+                height="3rem"
+                transform="rotate(135deg)"
+              /> */}
+            </div>
           </div>
         </>
       )}

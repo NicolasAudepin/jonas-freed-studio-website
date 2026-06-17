@@ -69,7 +69,13 @@ const CameraGlb = () => {
   }, [gltf]);
 
   useEffect(() => {
-    state.set({ camera: map3Dobj["Camera"] });
+    const camera = map3Dobj["Camera"];
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    state.set({ camera });
+
+    // state.set({ camera: map3Dobj["Camera"] });
+    
   }, [gltf.cameras, state.set]);
 
   const { actions } = useAnimations(gltf.animations, gltf.scene);
