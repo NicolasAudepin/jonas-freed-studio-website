@@ -9,6 +9,7 @@ import Tablette from "../components/Tablette3D";
 import Section from "../components/Section";
 import Manifesto from "../components/Manifesto";
 import { SafeFullPageScene } from "../components/FullPage3dScene";
+import { Motto } from "../components/Motto";
 
 // TODO clean section ordering here
 const HomePage = () => {
@@ -28,9 +29,10 @@ const HomePage = () => {
       <SafeFullPageScene />
       <div
         // style={{ pointerEvents: "all" }}
-        style={{ pointerEvents: "none" }}
+        // style={{ pointerEvents: "none" }}
       >
         <Hero />
+        <Motto />
         <Manifesto></Manifesto>
         <div className="actualContent ">
           <Section height="50vh">

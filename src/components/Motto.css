@@ -1,0 +1,33 @@
+.motto-grid {
+  display: grid;
+  grid-template-columns: 14% auto;
+  grid-template-rows: 25% auto;
+  grid-template-areas:
+    "b a "
+    "b c ";
+  text-align: justify;
+  padding: 1rem;
+}
+
+.grid1 {
+  font-size: 230%;
+  grid-area: b;
+  /* border-right: 2px solid; */
+  writing-mode: sideways-rl;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  padding: 10%;
+  align-content: center;
+}
+.grid2 {
+  font-size: 230%;
+  font-weight: bold;
+  grid-area: a;
+  border-bottom: 2px solid;
+  padding-left: 2%;
+}
+.grid3 {
+  font-size: 190%;
+  writing-mode: sideways-rl;
+  grid-area: c;
+}

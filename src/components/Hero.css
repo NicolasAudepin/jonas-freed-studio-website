@@ -1,63 +1,38 @@
-.heroText {
-  /* display: flex; */
+.hero-section {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vmin-square {
+  height: 100vmin;
+  width: 100vmin;
+}
+
+.hero-section {
   position: relative;
 
   align-content: center;
-  /* height: 100%; */
   min-height: 100vh;
-  pointer-events: none;
 }
 
 .JONASFREED {
-  /* font-family: "Coral Pixels", serif; */
   text-align: center;
 
-  margin-top: 16vh;
+  margin-top: 23%;
   font-family: var(--preferred-font);
-  font-size: 17rem;
-  line-height: 18.5rem;
+  font-size: 23vmin;
   border-left: 2px solid;
   border-right: 2px solid;
-  margin-left: calc(50vw - 32rem);
-  margin-right: calc(50vw - 32rem);
+  margin-left: 3vmin;
+  margin-right: 3vmin;
 }
 
 .studio {
-  /* pointer-events: none; */
   text-align: center;
 
   font-family: "Libertinus Mono", monospace;
-  /* font-family: "Libre Caslon Text", serif; */
-  font-size: 7rem;
-  line-height: 5rem;
-  /* position: absolute; */
-}
-
-.motto {
-  /* position: absolute; */
-  padding-top: 6rem;
-  /* position: absolute; */
-
-  /* padding-top: 10rem; */
-  /* bottom: 15rem; */
-  font-size: 3rem;
-  text-align: center;
-}
-
-@media screen and (max-width: 1060px) {
-  .JONASFREED {
-    /* font-size: 10rem; */
-    font-size: 25vw;
-    line-height: 27vw;
-    margin-left: 3vw;
-    margin-right: 3vw;
-  }
-  .studio {
-    font-size: 10vw;
-    line-height: 8vw;
-  }
-  .motto {
-    padding-top: 14vw;
-    font-size: 2rem;
-  }
+  font-size: 13vmin;
+  line-height: 5vmin;
 }
