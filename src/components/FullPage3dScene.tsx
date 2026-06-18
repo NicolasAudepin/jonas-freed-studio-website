@@ -50,6 +50,7 @@ const LightsGlb = () => {
 
   function setupLights() {
     state.gl.shadowMap.enabled = true;
+    state.gl.shadowMap.type = THREE.PCFShadowMap;
 
     map3Dobj["Sun005"].intensity = 7;
     map3Dobj["Sun005"].castShadow = true;
@@ -123,7 +124,7 @@ const LogoGlb = () => {
   return <primitive object={gltf.scene}></primitive>;
 };
 
-export function SafeFullPageScene() {
+export function SafeFullPageScene({ children }) {
   return (
     <ErrorBoundary
       fallbackRender={({ error, resetErrorBoundary }) => (
@@ -152,6 +153,7 @@ export function SafeFullPageScene() {
           <StaticGlb path="glb/Scene1/blocks.glb" />
           <StaticGlb path="glb/Scene1/Basil.glb" />
           <StaticGlb path="glb/Scene1/Trees.glb" />
+          {children}
         </Suspense>
       </Canvas>
     </ErrorBoundary>
