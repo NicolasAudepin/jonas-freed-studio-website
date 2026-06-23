@@ -125,6 +125,7 @@ const LogoGlb = () => {
 };
 
 export function SafeFullPageScene({ children }) {
+  const { has3DScene } = useContext(DAContext);
   return (
     <ErrorBoundary
       fallbackRender={({ error, resetErrorBoundary }) => (
@@ -138,8 +139,8 @@ export function SafeFullPageScene({ children }) {
       <Canvas
         className=" fullpagecanvas "
         style={{
-          left: "0%",
-          right: "0%",
+          left: has3DScene ? "0%" : "100vw",
+          // right: "0%",
           top: "0%",
           position: "fixed",
           pointerEvents: "all",

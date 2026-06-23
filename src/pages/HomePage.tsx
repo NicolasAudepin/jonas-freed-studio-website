@@ -10,12 +10,14 @@ import Section from "../components/Section";
 import Manifesto from "../components/Manifesto";
 import { SafeFullPageScene } from "../components/FullPage3dScene";
 import { Motto } from "../components/Motto";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PinContainer, Pin, LerpDisplay } from "../components/ScrollPin";
 import { SpaceTaker } from "../components/SpaceTaker";
+import { DAContext } from "../components/DAContext";
 
 // TODO clean section ordering here
 const HomePage = () => {
+  const { has3DScene } = useContext(DAContext);
   return (
     <div className="page">
       <PinContainer>
@@ -28,7 +30,7 @@ const HomePage = () => {
           <Pin id={1} />
           <Motto />
           <Pin id={2} />
-          <SpaceTaker height={"10rem"} />
+          <SpaceTaker height={has3DScene ? "30rem" : "10rem"} />
 
           <Manifesto></Manifesto>
           <SpaceTaker height={"10rem"} />
@@ -39,7 +41,7 @@ const HomePage = () => {
               <div>J'ai déjà tué un homme. Bientôt, je tue un ours.</div>
             </Section>
             <Pin id={6} />
-            <SpaceTaker height={"55vh"} />
+            <SpaceTaker height={has3DScene ? "55vh" : "5vh"} />
             <Pin id={7} />
             <Section>
               <h1>CONTACTS</h1>

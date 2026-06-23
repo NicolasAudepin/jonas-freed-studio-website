@@ -20,8 +20,8 @@ export const CameraGlb = () => {
   gltf.scene.traverse((child) => {
     map3Dobj[child.name] = child;
   });
-  console.log("cam");
-  console.log(gltf);
+  // console.log("cam");
+  // console.log(gltf);
 
   useEffect(() => {
     return () => {
@@ -43,7 +43,7 @@ export const CameraGlb = () => {
 
   // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
-    console.log("action");
+    // console.log("action");
 
     actions["Camera.001Action"]
       .reset()

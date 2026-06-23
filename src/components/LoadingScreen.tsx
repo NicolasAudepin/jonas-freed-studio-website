@@ -1,8 +1,9 @@
 import "./LoadingScreen.css";
 import { useProgress } from "@react-three/drei";
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SVG } from "./SVG";
+import { DAContext } from "./DAContext";
 
 function useDelayedProgress(progress) {
   const [value, setValue] = useState(0);
@@ -36,6 +37,7 @@ const LoadingScreen = () => {
   // const id = useRef(Math.random().toString(36).slice(2));
   // console.log("LoadingScreen render", id.current);
 
+  const { has3DScene, setHas3DScene } = useContext(DAContext);
   const { progress, loaded, total } = useProgress();
   const dlProgress = loaded;
 
@@ -60,6 +62,8 @@ const LoadingScreen = () => {
   // }, []);
 
   useEffect(() => {
+    if (ready) setHas3DScene(true);
+
     if (ready || clicked) {
       setTimeout(() => {
         setRendered(false);

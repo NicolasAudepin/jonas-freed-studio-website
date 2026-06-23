@@ -7,6 +7,7 @@ export const SpaceTaker = ({ height }) => {
           display: "block",
           backgroundColor: "rgb(255, 0, 128)",
           visibility: "hidden",
+          transition: "height 2s",
         }}
       />
     </>

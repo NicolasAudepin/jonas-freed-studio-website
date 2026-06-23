@@ -13,6 +13,7 @@ const DAs = ["mortouvif", "wikiutopist", "datagalore", "printedpress"];
 
 const DAProvider = ({ children }) => {
   const [DAId, setDAId] = useState(0);
+  const [has3DScene, setHas3DScene] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [computedStyle, setComputedStyle] = useState();
 
@@ -29,7 +30,7 @@ const DAProvider = ({ children }) => {
   }
 
   function getStyleValue(property: string) {
-    return computedStyle?computedStyle.getPropertyValue(property):null;
+    return computedStyle ? computedStyle.getPropertyValue(property) : null;
   }
 
   function refreshCss() {
@@ -61,6 +62,8 @@ const DAProvider = ({ children }) => {
         currentDA,
         updating,
         getStyleValue,
+        has3DScene,
+        setHas3DScene,
       }}
     >
       {children}
@@ -81,5 +84,17 @@ const DAButton = () => {
     </button>
   );
 };
+const ThreeDButton = () => {
+  const { has3DScene, setHas3DScene } = useContext(DAContext);
+  return (
+    <button
+      onClick={() => {
+        setHas3DScene(!has3DScene);
+      }}
+    >
+      3D {has3DScene ? "ON" : "OFF"}
+    </button>
+  );
+};
 
-export { DAContext, DAProvider, DAButton };
+export { DAContext, DAProvider, DAButton, ThreeDButton };
