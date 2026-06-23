@@ -6,3 +6,34 @@
   left: 50%;
   /* transform: translate(-50%, -50%); */
 }
+
+.scroll-pin {
+  width: 20px;
+  height: 20px;
+  font-size: medium;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  border-radius: 50%;
+  position: absolute;
+  margin-left: 15px;
+  text-align: center;
+}
+
+.scroll-description {
+  border: 2px solid;
+
+  position: fixed;
+  bottom: 1vh;
+  right: 1vh;
+  /* z-index: 30; */
+  padding: 1rem;
+  font-size: larger;
+  text-align: justify;
+  align-content: end;
+  background-color: color-mix(
+    in oklab,
+    var(--background-color) 40%,
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(50px);
+}

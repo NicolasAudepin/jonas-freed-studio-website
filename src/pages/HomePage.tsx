@@ -11,7 +11,8 @@ import Manifesto from "../components/Manifesto";
 import { SafeFullPageScene } from "../components/FullPage3dScene";
 import { Motto } from "../components/Motto";
 import { useEffect, useState } from "react";
-import { PinContainer, Pin } from "../components/ScrollPin";
+import { PinContainer, Pin, LerpDisplay } from "../components/ScrollPin";
+import { SpaceTaker } from "../components/SpaceTaker";
 
 // TODO clean section ordering here
 const HomePage = () => {
@@ -23,44 +24,35 @@ const HomePage = () => {
         // style={{ pointerEvents: "all" }}
         // style={{ pointerEvents: "none" }}
         >
-          <Pin id={0} />
           <Hero />
-          <Pin id={0} />
-          <Motto />
           <Pin id={1} />
-          <Manifesto></Manifesto>
+          <Motto />
           <Pin id={2} />
+          <SpaceTaker height={"10rem"} />
+
+          <Manifesto></Manifesto>
+          <SpaceTaker height={"10rem"} />
+          <Pin id={5} />
           <div className="actualContent ">
-            <Section height="50vh">
+            <Section height="30vh">
               <h1>OUR [ongoing] WORKS</h1>
               <div>J'ai déjà tué un homme. Bientôt, je tue un ours.</div>
             </Section>
-            <Section height="50vh">
-          <Pin id={3} />
+            <Pin id={6} />
+            <SpaceTaker height={"55vh"} />
+            <Pin id={7} />
+            <Section>
               <h1>CONTACTS</h1>
               <div>
                 C'est nous qui vous trouverons quand vous vous y attendrez le
                 moins.
               </div>
-              <Pin id={4} />
+              <Pin id={8} />
             </Section>
-          <Pin id={5} />
+            <SpaceTaker height={"55vh"} />
           </div>
         </div>
-        {/* <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            fontSize: "48px",
-            backgroundColor: "rgba(255, 255, 255, 0.8)",
-            padding: "20px",
-            borderRadius: "10px",
-          }}
-        >
-          Current Value: {lerpValue.toFixed(3)}
-        </div> */}
+        <LerpDisplay />
       </PinContainer>
     </div>
   );

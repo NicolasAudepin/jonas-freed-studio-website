@@ -8,7 +8,7 @@ import { PinContext } from "./ScrollPin";
 
 export const CameraGlb = () => {
   const state = useThree();
-  const { valueRef } = useContext(PinContext);
+  const { valueRef, pins } = useContext(PinContext);
 
   const map3Dobj = {};
   // //this works
@@ -21,6 +21,7 @@ export const CameraGlb = () => {
     map3Dobj[child.name] = child;
   });
   console.log("cam");
+  console.log(gltf);
 
   useEffect(() => {
     return () => {
@@ -29,7 +30,7 @@ export const CameraGlb = () => {
   }, [gltf]);
 
   useEffect(() => {
-    const camera = map3Dobj["Camera001_1"];
+    const camera = map3Dobj["Camera001"];
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     state.set({ camera });
@@ -57,7 +58,7 @@ export const CameraGlb = () => {
     // const progress =
     //   window.pageYOffset / (document.body.scrollHeight - innerHeight);
     // const time = progress * duration.current;
-    const time = (valueRef.current / 5) * duration.current;
+    const time = (valueRef.current / (pins.length - 1)) * duration.current;
 
     actions["Camera.001Action"].time = time;
     // console.log(valueRef.current);

@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
+
+import "./Pin3DObject.css";
 
 // Linear interpolation function
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -18,20 +26,7 @@ export const Pin = ({ id }) => {
   }, [id, registerPin]);
 
   return (
-    <div
-      ref={pinRef}
-      style={{
-        width: "20px",
-        height: "20px",
-        backgroundColor: "var(--text-color)",
-        color: "var(--background-color)",
-        borderRadius: "50%",
-        position:"absolute",
-        // display: "inline-block",
-        margin: "0 10px",
-        textAlign:"center"
-      }}
-    >
+    <div ref={pinRef} className="scroll-pin">
       {id}
     </div>
   );
@@ -127,63 +122,29 @@ export const PinContainer = ({ children, onValueChange }) => {
   }, [pins, updateCachedPositions, onValueChange]);
 
   return (
-    <PinContext.Provider value={{ registerPin, valueRef }}>
+    <PinContext.Provider value={{ registerPin, valueRef, pins }}>
       <div>{children}</div>
     </PinContext.Provider>
   );
 };
 
-// Example usage with 3D scene integration
-const App = () => {
-  const [lerpValue, setLerpValue] = useState(0);
+export const LerpDisplay = () => {
+  const { valueRef, pins } = useContext(PinContext);
+  const [lerp, setLerp] = useState(0);
+  function handdleScroll(event) {
+    setLerp(valueRef.current);
+  }
 
-  // Example: Use the lerpValue in your 3D scene
-  React.useEffect(() => {
-    // Simulate your useFrame logic
-    const animate = () => {
-      // Replace this with your actual 3D scene logic
-      console.log("Current lerp value:", lerpValue);
-      requestAnimationFrame(animate);
-    };
-    animate();
-  }, [lerpValue]);
+  useEffect(() => {
+    window.addEventListener("scroll", handdleScroll);
+    return () => window.removeEventListener("scroll", handdleScroll);
+  }, [valueRef]);
 
   return (
-    <PinContainer onValueChange={setLerpValue}>
-      <div style={{ height: "100vh", padding: "20px" }}>
-        <h1>Section 1</h1>
-        <p>Some content here...</p>
-        <Pin id={1} />
-      </div>
-      <div style={{ height: "100vh", padding: "20px" }}>
-        <h1>Section 2</h1>
-        <p>More content here...</p>
-        <Pin id={2} />
-      </div>
-      <div style={{ height: "100vh", padding: "20px" }}>
-        <h1>Section 3</h1>
-        <p>Even more content here...</p>
-        <Pin id={4} />
-      </div>
-      <div style={{ height: "100vh", padding: "20px" }}>
-        <h1>Section 4</h1>
-        <p>Final content here...</p>
-        <Pin id={5} />
-      </div>
-      <div
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          fontSize: "48px",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
-          padding: "20px",
-          borderRadius: "10px",
-        }}
-      >
-        Current Value: {lerpValue.toFixed(1)}
-      </div>
-    </PinContainer>
+    <div className="scroll-description" onScroll={handdleScroll}>
+      <div>{lerp.toFixed(1)} lerp</div>
+      <div>{pins.length} pins</div>
+      <div>{((lerp / (pins.length - 1)) * 100).toFixed(1)} %</div>
+    </div>
   );
 };

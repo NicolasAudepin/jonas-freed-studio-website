@@ -1,5 +1,5 @@
 import { SpaceTaker } from "../components/SpaceTaker";
-import { Pin } from "./Pin3DObject";
+import { Pin } from "./ScrollPin";
 import "../index.css";
 import "./Hero.css";
 import { useContext } from "react";
@@ -11,10 +11,10 @@ const Hero = () => {
   return (
     <div className="hero-section ">
       <div className="vmin-square ">
-        <Pin id="TitleO" left="50%"></Pin>
         {/* <SpaceTaker height="3rem" /> */}
         <div className="JONASFREED ">
           <div>JONAS</div>
+          <Pin id={0} />
           <div>FREED</div>
         </div>
 

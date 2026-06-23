@@ -1,5 +1,5 @@
 import "./Manifesto.css";
-import { Pin } from "./Pin3DObject";
+import { Pin } from "./ScrollPin";
 import Section from "./Section";
 import { SpaceTaker } from "./SpaceTaker";
 import { SVG, SvgDisplay } from "./SVG";
@@ -8,8 +8,7 @@ import WidthActivated from "./WidthActivated";
 const Manifesto = () => {
   return (
     <Section>
-      <SpaceTaker height={"10rem"} />
-
+      <Pin id={3} />
       <div className="actualContent manifestGrid ">
         <div className="manifestTitle ">
           <WidthActivated min={801} className="manifestTitle ">
@@ -18,7 +17,7 @@ const Manifesto = () => {
           </WidthActivated>
         </div>
 
-        <div className=" manifestText">
+        <div className=" manifestText ">
           <WidthActivated max={800}>
             <SpaceTaker height={"4rem"} />
             <div className="manifestTitle manifestTitleSmall ">MANIFESTO</div>
@@ -99,6 +98,7 @@ const Manifesto = () => {
           </div> */}
         </div>
       </div>
+      <Pin id={4} />
     </Section>
   );
 };
