@@ -149,8 +149,20 @@ h2 {
   );
   backdrop-filter: blur(50px);
 }
+.bg-blur-weak {
+  background-color: color-mix(
+    in oklab,
+    var(--background-color) 30%,
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(20px);
+}
 
 .bg-invert {
   background-color: var(--text-color);
   color: var(--background-color);
+}
+
+.no-overflow {
+  overflow: hidden;
 }

@@ -24,7 +24,7 @@ const HomePage = () => {
         <SafeFullPageScene />
         <div
         // style={{ pointerEvents: "all" }}
-        // style={{ pointerEvents: "none" }}
+        style={{ pointerEvents: "none" }}
         >
           <Hero />
           <Pin id={1} />
@@ -33,7 +33,7 @@ const HomePage = () => {
           <SpaceTaker height={has3DScene ? "30rem" : "10rem"} />
 
           <Manifesto></Manifesto>
-          <SpaceTaker height={"10rem"} />
+          <SpaceTaker height={has3DScene ? "30rem": "10rem"} />
           <Pin id={5} />
           <div className="actualContent ">
             <Section height="30vh">

@@ -133,6 +133,7 @@ export const LerpDisplay = () => {
   const [lerp, setLerp] = useState(0);
   function handdleScroll(event) {
     setLerp(valueRef.current);
+    // console.log(event);
   }
 
   useEffect(() => {

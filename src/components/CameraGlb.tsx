@@ -43,15 +43,19 @@ export const CameraGlb = () => {
 
   // eslint-disable-next-line react-hooks/immutability
   useEffect(() => {
-    // console.log("action");
+    // console.log(actions["CameraFollowPath"]);
 
-    actions["Camera.001Action"]
+    actions["CameraFollowPath"]
       .reset()
       .play()
       .setLoop(THREE.LoopPingPong, Infinity);
+    // actions["CameraSideStep"]
+    //   .reset()
+    //   .play()
+    //   .setLoop(THREE.LoopPingPong, Infinity);
 
-    actions["Camera.001Action"].paused = true;
-    duration.current = actions["Camera.001Action"].getClip().duration;
+    actions["CameraFollowPath"].paused = true;
+    duration.current = actions["CameraFollowPath"].getClip().duration;
   }, [actions]);
 
   useFrame(() => {
@@ -60,7 +64,7 @@ export const CameraGlb = () => {
     // const time = progress * duration.current;
     const time = (valueRef.current / (pins.length - 1)) * duration.current;
 
-    actions["Camera.001Action"].time = time;
+    actions["CameraFollowPath"].time = time;
     // console.log(valueRef.current);
   });
 
