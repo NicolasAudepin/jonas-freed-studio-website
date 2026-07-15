@@ -122,8 +122,12 @@ export const PinContainer = ({ children, onValueChange }) => {
   }, [pins, updateCachedPositions, onValueChange]);
 
   return (
-    <PinContext.Provider value={{ registerPin, valueRef, pins }}>
+    <PinContext.Provider
+      value={{ registerPin, valueRef, pins, updateCachedPositions }}
+    >
       <div>{children}</div>
+      <LerpDisplay />
+
     </PinContext.Provider>
   );
 };
@@ -135,6 +139,8 @@ export const LerpDisplay = () => {
     setLerp(valueRef.current);
     // console.log(event);
   }
+
+  
 
   useEffect(() => {
     window.addEventListener("scroll", handdleScroll);

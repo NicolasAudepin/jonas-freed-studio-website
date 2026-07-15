@@ -9,8 +9,20 @@
   top: 0%;
 
   z-index: 2;
-  align-items: end;
-  justify-content: right;
+  /* align-items: end; */
+  /* justify-content: right; */
   overflow: scroll;
+  overflow-x: scroll;
   white-space: nowrap;
+}
+
+.navbutton {
+  color: var(--text-color);
+  padding-left: 1rem;
+  /* margin-left: 1rem; */
+  padding-right: 1rem;
+  /* margin-right: 1rem; */
+  /* border-left: 2px solid; */
+  border-right: 2px solid;
+  text-decoration: none;
 }

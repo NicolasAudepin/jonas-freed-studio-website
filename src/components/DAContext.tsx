@@ -5,7 +5,6 @@ import {
   useContext,
   useLayoutEffect,
 } from "react";
-import { useLocation } from "react-router-dom";
 
 const DAContext = createContext(null);
 
@@ -15,6 +14,7 @@ const DAProvider = ({ children }) => {
   const [DAId, setDAId] = useState(0);
   const [has3DScene, setHas3DScene] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [isDebug, setDebug] = useState(false);
   const [computedStyle, setComputedStyle] = useState();
 
   function rotateDAId() {
@@ -64,6 +64,8 @@ const DAProvider = ({ children }) => {
         getStyleValue,
         has3DScene,
         setHas3DScene,
+        isDebug,
+        setDebug,
       }}
     >
       {children}
@@ -84,6 +86,18 @@ const DAButton = () => {
     </button>
   );
 };
+const DebugButton = () => {
+  const { setDebug, isDebug } = useContext(DAContext);
+  return (
+    <button
+      onClick={() => {
+        setDebug(!isDebug);
+      }}
+    >
+      {isDebug ? "DEBUG" : "BUG"}
+    </button>
+  );
+};
 const ThreeDButton = () => {
   const { has3DScene, setHas3DScene } = useContext(DAContext);
   return (
@@ -97,4 +111,4 @@ const ThreeDButton = () => {
   );
 };
 
-export { DAContext, DAProvider, DAButton, ThreeDButton };
+export { DAContext, DAProvider, DAButton, ThreeDButton, DebugButton };

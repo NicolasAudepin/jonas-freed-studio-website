@@ -17,45 +17,46 @@ import { DAContext } from "../components/DAContext";
 
 // TODO clean section ordering here
 const HomePage = () => {
-  const { has3DScene } = useContext(DAContext);
+  const { has3DScene, isDebug } = useContext(DAContext);
   return (
-    <div className="page">
-      <PinContainer>
-        <SafeFullPageScene />
-        <div
-        // style={{ pointerEvents: "all" }}
-        style={{ pointerEvents: "none" }}
-        >
-          <Hero />
-          <Pin id={1} />
-          <Motto />
-          <Pin id={2} />
-          <SpaceTaker height={has3DScene ? "30rem" : "10rem"} />
+    <div
+      className="page"
+      style={{
+        pointerEvents: isDebug?"none":"all",
+        // visibility: "hidden",
+      }}
+    >
+      <div
+      // style={{ pointerEvents: "all" }}
+      >
+        <Hero />
+        <Pin id={1} />
+        <Motto />
+        <Pin id={2} />
+        <SpaceTaker height={has3DScene ? "45rem" : "10rem"} />
 
-          <Manifesto></Manifesto>
-          <SpaceTaker height={has3DScene ? "30rem": "10rem"} />
-          <Pin id={5} />
-          <div className="actualContent ">
-            <Section height="30vh">
-              <h1>OUR [ongoing] WORKS</h1>
-              <div>J'ai déjà tué un homme. Bientôt, je tue un ours.</div>
-            </Section>
-            <Pin id={6} />
-            <SpaceTaker height={has3DScene ? "55vh" : "5vh"} />
-            <Pin id={7} />
-            <Section>
-              <h1>CONTACTS</h1>
-              <div>
-                C'est nous qui vous trouverons quand vous vous y attendrez le
-                moins.
-              </div>
-              <Pin id={8} />
-            </Section>
-            <SpaceTaker height={"55vh"} />
-          </div>
+        <Manifesto></Manifesto>
+        <SpaceTaker height={has3DScene ? "30rem" : "10rem"} />
+        <Pin id={5} />
+        <div className="actualContent ">
+          <Section height="30vh">
+            <h1>OUR [ongoing] WORKS</h1>
+            <div>J'ai déjà tué un homme. Bientôt, je tue un ours.</div>
+          </Section>
+          <Pin id={6} />
+          <SpaceTaker height={has3DScene ? "55vh" : "5vh"} />
+          <Pin id={7} />
+          <Section>
+            <h1>CONTACTS</h1>
+            <div>
+              C'est nous qui vous trouverons quand vous vous y attendrez le
+              moins.
+            </div>
+            <Pin id={8} />
+          </Section>
+          <SpaceTaker height={"55vh"} />
         </div>
-        <LerpDisplay />
-      </PinContainer>
+      </div>
     </div>
   );
 };

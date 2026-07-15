@@ -27,7 +27,7 @@ export const LightsGlb = () => {
   let gltf;
   gltf = useLoader(
     GLTFLoader,
-    import.meta.env.BASE_URL + "glb/Scene1/Lights.glb",
+    import.meta.env.BASE_URL + "glb/Scene1/LightsV2.glb",
   );
 
   gltf.scene.traverse((child) => {
@@ -42,22 +42,46 @@ export const LightsGlb = () => {
 
   function setupLights() {
     state.gl.shadowMap.enabled = true;
-    state.gl.shadowMap.type = THREE.PCFShadowMap;
+    state.gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    try {
+      const sunName = "Sun001";
+      const sun = map3Dobj[sunName];
 
-    map3Dobj["Sun005"].intensity = 20;
-    map3Dobj["Sun005"].castShadow = true;
+      sun.intensity = 20;
+      sun.castShadow = true;
 
-    map3Dobj["Sun005"].color.set(getStyleValue("--background-color"));
-    // map3Dobj["Point"].color.set(getStyleValue("--accent-color"));
+      sun.shadow.mapSize.width = 2 ** 10;
+      sun.shadow.mapSize.height = 2 ** 10;
+
+      // Configure the orthographic shadow camera frustum
+      sun.shadow.camera.near = 0.1; // Default: 0.5
+      sun.shadow.camera.far = 40; // Default: 500 (adjust to scene scale)
+      sun.shadow.camera.left = -40; // Default: -5
+      sun.shadow.camera.right = 40; // Default: 5
+      sun.shadow.camera.top = 40; // Default: 5
+      sun.shadow.camera.bottom = -40; // Default: -5
+
+      // Optional: Reduce shadow acne (self-shadowing artifacts)
+      sun.shadow.bias = -0.01;
+
+      sun.color.set(getStyleValue("--background-color"));
+      map3Dobj["Point"].color.set(getStyleValue("--accent-color"));
+      map3Dobj["Point"].intensity = 5;
+      // map3Dobj["Point"].castShadow = true;
+      // console.log(map3Dobj);
+    } catch (error) {
+      console.error(error);
+    }
   }
   setupLights();
 
   return (
     <>
       <ambientLight
-        intensity={currentDA() == "printedpress" ? 0 : 1.5}
+        intensity={currentDA() == "printedpress" ? 0 : 0.4}
         color={getStyleValue("--background-color")}
       />
+      {/* <cameraHelper camera={sun?.shadow.camera}></cameraHelper> */}
       <primitive object={gltf.scene} />
     </>
   );

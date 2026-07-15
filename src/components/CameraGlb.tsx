@@ -2,19 +2,21 @@ import { useAnimations } from "@react-three/drei";
 import { useThree, useLoader, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useContext } from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
+import { GLTFLoader, OrbitControls } from "three/examples/jsm/Addons.js";
 import { cleanupGltf } from "../modules/cleanupGltf";
 import { PinContext } from "./ScrollPin";
+import { DAContext } from "./DAContext";
 
 export const CameraGlb = () => {
   const state = useThree();
   const { valueRef, pins } = useContext(PinContext);
+  const { isDebug } = useContext(DAContext);
 
   const map3Dobj = {};
   // //this works
   const gltf = useLoader(
     GLTFLoader,
-    import.meta.env.BASE_URL + "glb/Scene1/Camgroup.glb",
+    import.meta.env.BASE_URL + "glb/Scene1/CamgroupV2.glb",
   );
 
   gltf.scene.traverse((child) => {
@@ -23,6 +25,9 @@ export const CameraGlb = () => {
   // console.log("cam");
   // console.log(gltf);
 
+  const debugCamera = new THREE.PerspectiveCamera();
+  const debugControls = new OrbitControls(debugCamera, state.gl.domElement);
+  debugCamera.position.set(0, 20, 100);
   useEffect(() => {
     return () => {
       cleanupGltf(gltf);
@@ -30,13 +35,15 @@ export const CameraGlb = () => {
   }, [gltf]);
 
   useEffect(() => {
-    const camera = map3Dobj["Camera001"];
+    const camera = map3Dobj["Camera003"];
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    state.set({ camera });
+    debugCamera.aspect = window.innerWidth / window.innerHeight;
+    debugCamera.updateProjectionMatrix();
+    state.set({ camera: isDebug ? debugCamera : camera });
 
     // state.set({ camera: map3Dobj["Camera"] });
-  }, [gltf.cameras, state.set]);
+  }, [gltf.cameras, state.set, isDebug]);
 
   const { actions } = useAnimations(gltf.animations, gltf.scene);
   const duration = useRef(0);
@@ -49,23 +56,19 @@ export const CameraGlb = () => {
       .reset()
       .play()
       .setLoop(THREE.LoopPingPong, Infinity);
-    // actions["CameraSideStep"]
-    //   .reset()
-    //   .play()
-    //   .setLoop(THREE.LoopPingPong, Infinity);
 
     actions["CameraFollowPath"].paused = true;
     duration.current = actions["CameraFollowPath"].getClip().duration;
   }, [actions]);
 
   useFrame(() => {
-    // const progress =
-    //   window.pageYOffset / (document.body.scrollHeight - innerHeight);
-    // const time = progress * duration.current;
     const time = (valueRef.current / (pins.length - 1)) * duration.current;
 
     actions["CameraFollowPath"].time = time;
     // console.log(valueRef.current);
+    if (isDebug) {
+      debugControls.update();
+    }
   });
 
   return <primitive object={gltf.scene} />;

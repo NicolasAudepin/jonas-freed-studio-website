@@ -33,10 +33,12 @@
 
 :root {
   font-family: "Libre Caslon Text", serif;
+  /* cannot be used in media queries but used as a reference*/
+  --min-content-width: 320px;
+  --max-phone-width: 760px;
+  --max-tablet-width: 1000px;
+  --max-content-width: 1280px;
 
-  --max-small-width: 320px;
-  --max-phone-width: 767px;
-  --max-tablet-width: 991px;
 }
 * {
   box-sizing: border-box;

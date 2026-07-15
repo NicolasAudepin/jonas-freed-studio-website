@@ -25,6 +25,7 @@ import LoadingScreen from "./LoadingScreen";
 import { cleanupGltf } from "../modules/cleanupGltf";
 import { CameraGlb } from "./CameraGlb";
 import { LightsGlb } from "./LightsGlb";
+import { useLocation } from "react-router-dom";
 
 const StaticGlb = ({ path }) => {
   const gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + path);
@@ -81,7 +82,7 @@ const LogoGlb = () => {
 };
 
 export function SafeFullPageScene({ children }) {
-  const { has3DScene } = useContext(DAContext);
+  const { has3DScene, isDebug } = useContext(DAContext);
   return (
     <ErrorBoundary
       fallbackRender={({ error, resetErrorBoundary }) => (
@@ -99,7 +100,8 @@ export function SafeFullPageScene({ children }) {
           // right: "0%",
           top: "0%",
           position: "fixed",
-          pointerEvents: "all",
+          pointerEvents: isDebug ? "all" : "none",
+          // visibility: "hidden",
         }}
       >
         <Suspense>
@@ -107,9 +109,9 @@ export function SafeFullPageScene({ children }) {
           <CameraGlb />
           <LogoGlb />
           <LightsGlb />
-          <StaticGlb path="glb/Scene1/blocks.glb" />
-          <StaticGlb path="glb/Scene1/Basil.glb" />
-          <StaticGlb path="glb/Scene1/Trees.glb" />
+          <StaticGlb path="glb/Scene1/archiV2.glb" />
+          {/* <StaticGlb path="glb/Scene1/Basil.glb" /> */}
+          <StaticGlb path="glb/Scene1/Trees_001.glb" />
           {children}
         </Suspense>
       </Canvas>
