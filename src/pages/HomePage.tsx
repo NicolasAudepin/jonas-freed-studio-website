@@ -14,21 +14,25 @@ import { useContext, useEffect, useState } from "react";
 import { PinContainer, Pin, LerpDisplay } from "../components/ScrollPin";
 import { SpaceTaker } from "../components/SpaceTaker";
 import { DAContext } from "../components/DAContext";
+import { useControls } from "leva";
 
 // TODO clean section ordering here
 const HomePage = () => {
   const { has3DScene, isDebug } = useContext(DAContext);
+  const { useDebugControls } = useControls("CAMERA", {
+    useDebugControls: false,
+  });
   return (
     <div
       className="page"
       style={{
-        pointerEvents: isDebug ? "none" : "all",
+        pointerEvents: useDebugControls ? "none" : "all",
         // visibility: "hidden",
       }}
     >
       <div
         style={{
-          zIndex: isDebug ? -100 : 0,
+          zIndex: useDebugControls ? -100 : 0,
         }}
         // style={{ pointerEvents: "all" }}
       >

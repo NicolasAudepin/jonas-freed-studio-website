@@ -126,7 +126,6 @@ export const PinContainer = ({ children, onValueChange }) => {
       value={{ registerPin, valueRef, pins, updateCachedPositions }}
     >
       <div>{children}</div>
-      <LerpDisplay />
 
     </PinContext.Provider>
   );

@@ -6,8 +6,14 @@ import { GLTFLoader, OrbitControls } from "three/examples/jsm/Addons.js";
 import { cleanupGltf } from "../modules/cleanupGltf";
 import { PinContext } from "./ScrollPin";
 import { DAContext } from "./DAContext";
+import {  useControls } from "leva";
 
 export const CameraGlb = () => {
+  const { useDebugCam, useDebugControls } = useControls("CAMERA", {
+    useDebugCam: false,
+    // useDebugControls: false,
+  });
+
   const state = useThree();
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   const { valueRef, pins } = useContext(PinContext);
@@ -42,10 +48,10 @@ export const CameraGlb = () => {
     camera.updateProjectionMatrix();
     debugCamera.aspect = window.innerWidth / window.innerHeight;
     debugCamera.updateProjectionMatrix();
-    state.set({ camera: isDebug ? debugCamera : camera });
+    state.set({ camera: useDebugCam ? debugCamera : camera });
 
     // state.set({ camera: map3Dobj["Camera"] });
-  }, [gltf.cameras, state.set, isDebug]);
+  }, [gltf.cameras, state.set, useDebugCam]);
 
   const { actions } = useAnimations(gltf.animations, gltf.scene);
   const duration = useRef(0);
@@ -68,7 +74,7 @@ export const CameraGlb = () => {
 
     actions["CameraFollowPath"].time = time;
     // console.log(valueRef.current);
-    if (isDebug) {
+    if (useDebugControls) {
       debugControls.update();
     }
   });
@@ -76,7 +82,7 @@ export const CameraGlb = () => {
   return (
     <>
       <primitive object={gltf.scene} />
-      {isDebug ? <primitive object={camhelp} /> : null}
+      {useDebugCam ? <primitive object={camhelp} /> : null}
     </>
   );
 };

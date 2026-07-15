@@ -9,14 +9,14 @@ import {
   Suspense,
 } from "react";
 
+import GUI from "lil-gui";
+import { useControls, Leva, folder } from "leva";
+
 import { useThree } from "@react-three/fiber";
 
 import { DAContext, DAProvider } from "./DAContext";
-import { CanvasContext } from "./CanvasContext";
 import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
-import { Camera, Color, Vector3 } from "three";
 import { OrbitControls, useAnimations } from "@react-three/drei";
-import { PostProcessingDA } from "./PostpProcessingDA";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
@@ -25,7 +25,7 @@ import LoadingScreen from "./LoadingScreen";
 import { cleanupGltf } from "../modules/cleanupGltf";
 import { CameraGlb } from "./CameraGlb";
 import { LightsGlb } from "./LightsGlb";
-import { useLocation } from "react-router-dom";
+import { LerpDisplay } from "./ScrollPin";
 
 const StaticGlb = ({ path }) => {
   const gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + path);
@@ -82,6 +82,10 @@ const LogoGlb = () => {
 };
 
 export function SafeFullPageScene({ children }) {
+  const { showStats } = useControls("Globals", {
+    showStats: false,
+  });
+
   const { has3DScene, isDebug } = useContext(DAContext);
   return (
     <ErrorBoundary
@@ -105,7 +109,8 @@ export function SafeFullPageScene({ children }) {
         }}
       >
         <Suspense>
-          {/* <Perf position="bottom-left" /> */}
+          {showStats ? <Perf position="bottom-left" /> : null}
+
           <CameraGlb />
           <LogoGlb />
           <LightsGlb />
@@ -115,6 +120,9 @@ export function SafeFullPageScene({ children }) {
           {children}
         </Suspense>
       </Canvas>
+      {isDebug ? <Leva /> : null}
+
+      {showStats ? <LerpDisplay /> : null}
     </ErrorBoundary>
   );
 }
