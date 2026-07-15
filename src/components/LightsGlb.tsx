@@ -1,26 +1,27 @@
 import "./FullPage3DCanvas.css";
-import { Canvas } from "@react-three/fiber";
 import { useState, useEffect, useContext, useCallback } from "react";
 
 import { useThree } from "@react-three/fiber";
 
 import { DAContext, DAProvider } from "./DAContext";
-import { CanvasContext } from "./CanvasContext";
-import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
-import { Camera, Color, Vector3 } from "three";
-import { OrbitControls, useAnimations } from "@react-three/drei";
-import { PostProcessingDA } from "./PostpProcessingDA";
+
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
-import { Perf } from "r3f-perf";
-import LoadingScreen from "./LoadingScreen";
+
 import { cleanupGltf } from "../modules/cleanupGltf";
+
+function debugStuff(map3Dobj) {
+  const sunName = "Sun001";
+  const sun = map3Dobj[sunName];
+  const debugShadow = new THREE.CameraHelper(sun.shadow.camera);
+  return debugShadow;
+}
 
 export const LightsGlb = () => {
   const state = useThree();
 
-  const { currentDA, getStyleValue } = useContext(DAContext);
+  const { currentDA, getStyleValue, isDebug } = useContext(DAContext);
 
   const map3Dobj = {};
   // //this works
@@ -33,6 +34,8 @@ export const LightsGlb = () => {
   gltf.scene.traverse((child) => {
     map3Dobj[child.name] = child;
   });
+
+  const debugShadow = debugStuff(map3Dobj);
 
   useEffect(() => {
     return () => {
@@ -55,11 +58,11 @@ export const LightsGlb = () => {
 
       // Configure the orthographic shadow camera frustum
       sun.shadow.camera.near = 0.1; // Default: 0.5
-      sun.shadow.camera.far = 40; // Default: 500 (adjust to scene scale)
-      sun.shadow.camera.left = -40; // Default: -5
-      sun.shadow.camera.right = 40; // Default: 5
-      sun.shadow.camera.top = 40; // Default: 5
-      sun.shadow.camera.bottom = -40; // Default: -5
+      sun.shadow.camera.far = 50; // Default: 500 (adjust to scene scale)
+      sun.shadow.camera.left = -15; // Default: -5
+      sun.shadow.camera.right = 15; // Default: 5
+      sun.shadow.camera.top = 15; // Default: 5
+      sun.shadow.camera.bottom = -15; // Default: -5
 
       // Optional: Reduce shadow acne (self-shadowing artifacts)
       sun.shadow.bias = -0.01;
@@ -83,6 +86,7 @@ export const LightsGlb = () => {
       />
       {/* <cameraHelper camera={sun?.shadow.camera}></cameraHelper> */}
       <primitive object={gltf.scene} />
+      {isDebug ? <primitive object={debugShadow} /> : null}
     </>
   );
 };

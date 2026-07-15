@@ -22,12 +22,15 @@ const HomePage = () => {
     <div
       className="page"
       style={{
-        pointerEvents: isDebug?"none":"all",
+        pointerEvents: isDebug ? "none" : "all",
         // visibility: "hidden",
       }}
     >
       <div
-      // style={{ pointerEvents: "all" }}
+        style={{
+          zIndex: isDebug ? -100 : 0,
+        }}
+        // style={{ pointerEvents: "all" }}
       >
         <Hero />
         <Pin id={1} />

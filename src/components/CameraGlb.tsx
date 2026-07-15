@@ -9,6 +9,7 @@ import { DAContext } from "./DAContext";
 
 export const CameraGlb = () => {
   const state = useThree();
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   const { valueRef, pins } = useContext(PinContext);
   const { isDebug } = useContext(DAContext);
 
@@ -24,6 +25,8 @@ export const CameraGlb = () => {
   });
   // console.log("cam");
   // console.log(gltf);
+  const camera = map3Dobj["Camera003"];
+  const camhelp = new THREE.CameraHelper(camera);
 
   const debugCamera = new THREE.PerspectiveCamera();
   const debugControls = new OrbitControls(debugCamera, state.gl.domElement);
@@ -35,7 +38,6 @@ export const CameraGlb = () => {
   }, [gltf]);
 
   useEffect(() => {
-    const camera = map3Dobj["Camera003"];
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     debugCamera.aspect = window.innerWidth / window.innerHeight;
@@ -71,5 +73,10 @@ export const CameraGlb = () => {
     }
   });
 
-  return <primitive object={gltf.scene} />;
+  return (
+    <>
+      <primitive object={gltf.scene} />
+      {isDebug ? <primitive object={camhelp} /> : null}
+    </>
+  );
 };
