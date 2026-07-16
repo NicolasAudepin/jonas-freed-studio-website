@@ -19,20 +19,20 @@ import { useControls } from "leva";
 // TODO clean section ordering here
 const HomePage = () => {
   const { has3DScene, isDebug } = useContext(DAContext);
-  const { useDebugControls } = useControls("CAMERA", {
-    useDebugControls: false,
+  const { orbitControl } = useControls("CAMERA", {
+    orbitControl: false,
   });
   return (
     <div
       className="page"
       style={{
-        pointerEvents: useDebugControls ? "none" : "all",
+        pointerEvents: orbitControl ? "none" : "all",
         // visibility: "hidden",
       }}
     >
       <div
         style={{
-          zIndex: useDebugControls ? -100 : 0,
+          zIndex: orbitControl ? -100 : 0,
         }}
         // style={{ pointerEvents: "all" }}
       >

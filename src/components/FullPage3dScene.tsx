@@ -82,8 +82,9 @@ const LogoGlb = () => {
 };
 
 export function SafeFullPageScene({ children }) {
-  const { showStats } = useControls("Globals", {
+  const { showStats, axis } = useControls("Globals", {
     showStats: false,
+    axis: false,
   });
 
   const { has3DScene, isDebug } = useContext(DAContext);
@@ -117,6 +118,7 @@ export function SafeFullPageScene({ children }) {
           <StaticGlb path="glb/Scene1/archiV2.glb" />
           {/* <StaticGlb path="glb/Scene1/Basil.glb" /> */}
           <StaticGlb path="glb/Scene1/Trees_001.glb" />
+          {axis ? <axesHelper scale={10} /> : null}
           {children}
         </Suspense>
       </Canvas>

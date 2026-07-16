@@ -6,18 +6,17 @@ import { GLTFLoader, OrbitControls } from "three/examples/jsm/Addons.js";
 import { cleanupGltf } from "../modules/cleanupGltf";
 import { PinContext } from "./ScrollPin";
 import { DAContext } from "./DAContext";
-import {  useControls } from "leva";
+import { useControls } from "leva";
 
 export const CameraGlb = () => {
-  const { useDebugCam, useDebugControls } = useControls("CAMERA", {
+  const { useDebugCam, orbitControl } = useControls("CAMERA", {
     useDebugCam: false,
-    // useDebugControls: false,
+    // orbitControl: false,
   });
 
   const state = useThree();
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   const { valueRef, pins } = useContext(PinContext);
-  const { isDebug } = useContext(DAContext);
 
   const map3Dobj = {};
   // //this works
@@ -74,7 +73,7 @@ export const CameraGlb = () => {
 
     actions["CameraFollowPath"].time = time;
     // console.log(valueRef.current);
-    if (useDebugControls) {
+    if (orbitControl) {
       debugControls.update();
     }
   });

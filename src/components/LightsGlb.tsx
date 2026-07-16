@@ -10,6 +10,7 @@ import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 
 import { cleanupGltf } from "../modules/cleanupGltf";
+import { useControls } from "leva";
 
 function debugStuff(map3Dobj) {
   const sunName = "Sun001";
@@ -21,7 +22,12 @@ function debugStuff(map3Dobj) {
 export const LightsGlb = () => {
   const state = useThree();
 
-  const { currentDA, getStyleValue, isDebug } = useContext(DAContext);
+  const { currentDA, getStyleValue } = useContext(DAContext);
+  const { lightsHelpers, fog } = useControls("LIGHTS", {
+    lightsHelpers: false,
+    fog: true,
+    // orbitControl: false,
+  });
 
   const map3Dobj = {};
   // //this works
@@ -86,7 +92,15 @@ export const LightsGlb = () => {
       />
       {/* <cameraHelper camera={sun?.shadow.camera}></cameraHelper> */}
       <primitive object={gltf.scene} />
-      {isDebug ? <primitive object={debugShadow} /> : null}
+      {lightsHelpers ? <primitive object={debugShadow} /> : null}
+      {fog ? (
+        <fog
+          attach="fog"
+          color={getStyleValue("--background-color")}
+          far={80}
+          near={10}
+        />
+      ) : null}
     </>
   );
 };
