@@ -1,15 +1,7 @@
 import "./FullPage3DCanvas.css";
 import { Canvas } from "@react-three/fiber";
-import {
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  useMemo,
-  Suspense,
-} from "react";
+import { useEffect, useContext, Suspense } from "react";
 
-import GUI from "lil-gui";
 import { useControls, Leva, folder } from "leva";
 
 import { useThree } from "@react-three/fiber";
@@ -26,24 +18,8 @@ import { cleanupGltf } from "../modules/cleanupGltf";
 import { CameraGlb } from "./CameraGlb";
 import { LightsGlb } from "./LightsGlb";
 import { LerpDisplay } from "./ScrollPin";
-
-const StaticGlb = ({ path }) => {
-  const gltf = useLoader(GLTFLoader, import.meta.env.BASE_URL + path);
-  gltf.scene.traverse((child) => {
-    if (child.isMesh) {
-      child.castShadow = true;
-      child.receiveShadow = true;
-    }
-  });
-
-  useEffect(() => {
-    return () => {
-      cleanupGltf(gltf);
-    };
-  }, [gltf]);
-
-  return <primitive object={gltf.scene} />;
-};
+import { PostProcessingDA } from "./PostpProcessingDA";
+import { StaticGlb } from "./StaticGlb";
 
 const LogoGlb = () => {
   const state = useThree();
@@ -120,6 +96,7 @@ export function SafeFullPageScene({ children }) {
           <StaticGlb path="glb/Scene1/Trees_001.glb" />
           {axis ? <axesHelper scale={10} /> : null}
           {children}
+          <PostProcessingDA />
         </Suspense>
       </Canvas>
       {isDebug ? <Leva /> : null}

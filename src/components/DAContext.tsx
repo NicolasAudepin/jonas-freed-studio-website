@@ -14,7 +14,7 @@ const DAProvider = ({ children }) => {
   const [DAId, setDAId] = useState(0);
   const [has3DScene, setHas3DScene] = useState(true);
   const [updating, setUpdating] = useState(false);
-  const [isDebug, setDebug] = useState(false);
+  const [isDebug, setDebug] = useState(true);
   const [computedStyle, setComputedStyle] = useState();
 
   function rotateDAId() {

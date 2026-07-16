@@ -6,28 +6,22 @@ import {
   Pixelation,
   ChromaticAberration,
   Outline,
+  SSAO,
+  Bloom,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 
-
-export const PostProcessingDA = ({ refsOutlined }) => {
+export const PostProcessingDA = () => {
   const { currentDA } = useContext(DAContext);
-  // console.log(refsOutlined);
   return (
-    <EffectComposer autoClear>
-      {currentDA() == "printedpress" && (
-        <DotScreen
-          angle={Math.PI * 0.5} // angle of the dot pattern
-          scale={0.2} // scale of the dot pattern
-        />
-      )}
-      {currentDA() == "printedpress" && (
-        <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL} // blend mode
-          offset={[0.02, 0.002]} // color offset
-        />
-      )}
-      {currentDA() == "datagalore" && <Pixelation granularity={20} />}
+    <EffectComposer autoClear enableNormalPass>
+      <SSAO
+        blendFunction={BlendFunction.MULTIPLY} // blend mode
+        samples={30} // amount of samples per pixel (shouldn't be a multiple of the ring count)
+        rings={4} // amount of rings in the occlusion sampling pattern
+        bias={-0.4} // occlusion bias
+        // resolutionScale={0.5}
+      />
     </EffectComposer>
   );
 };

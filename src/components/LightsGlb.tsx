@@ -23,11 +23,20 @@ export const LightsGlb = () => {
   const state = useThree();
 
   const { currentDA, getStyleValue } = useContext(DAContext);
-  const { lightsHelpers, fog } = useControls("LIGHTS", {
-    lightsHelpers: false,
-    fog: true,
-    // orbitControl: false,
-  });
+  const { lightsHelpers, ambientStrength,aSunStrength, fog, fogInterval } = useControls(
+    "LIGHTS",
+    {
+      lightsHelpers: false,
+      ambientStrength: { value: 2, min: 0, max: 5 },
+      aSunStrength: { value: 20, min: 0, max: 40 },
+      fog: true,
+      fogInterval: {
+        min: 0,
+        max: 200,
+        value: [10, 80],
+      },
+    },
+  );
 
   const map3Dobj = {};
   // //this works
@@ -56,7 +65,7 @@ export const LightsGlb = () => {
       const sunName = "Sun001";
       const sun = map3Dobj[sunName];
 
-      sun.intensity = 20;
+      sun.intensity = aSunStrength;
       sun.castShadow = true;
 
       sun.shadow.mapSize.width = 2 ** 10;
@@ -87,7 +96,7 @@ export const LightsGlb = () => {
   return (
     <>
       <ambientLight
-        intensity={currentDA() == "printedpress" ? 0 : 0.4}
+        intensity={ambientStrength}
         color={getStyleValue("--background-color")}
       />
       {/* <cameraHelper camera={sun?.shadow.camera}></cameraHelper> */}
@@ -97,8 +106,8 @@ export const LightsGlb = () => {
         <fog
           attach="fog"
           color={getStyleValue("--background-color")}
-          far={80}
-          near={10}
+          far={fogInterval[1]}
+          near={fogInterval[0]}
         />
       ) : null}
     </>
