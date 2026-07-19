@@ -27,5 +27,5 @@ export const StaticGlb = ({ path }) => {
     };
   }, [gltf]);
 
-  return <primitive object={gltf.scene} />;
+  return <primitive object={gltf.scene} onClick = {()=>{console.log("miskin")}} />;
 };

@@ -23,20 +23,18 @@ export const LightsGlb = () => {
   const state = useThree();
 
   const { currentDA, getStyleValue } = useContext(DAContext);
-  const { lightsHelpers, ambientStrength,aSunStrength, fog, fogInterval } = useControls(
-    "LIGHTS",
-    {
-      lightsHelpers: false,
-      ambientStrength: { value: 2, min: 0, max: 5 },
-      aSunStrength: { value: 20, min: 0, max: 40 },
-      fog: true,
-      fogInterval: {
-        min: 0,
-        max: 200,
-        value: [10, 80],
-      },
+  const lc = useControls("LIGHTS", {
+    lightsHelpers: false,
+    ambientStrength: { value: 2, min: 0, max: 5 },
+    groundColor: { value: 0.5, min: 0, max: 1 },
+    aSunStrength: { value: 6, min: 0, max: 40 },
+    fog: true,
+    fogInterval: {
+      min: 0,
+      max: 200,
+      value: [10, 80],
     },
-  );
+  });
 
   const map3Dobj = {};
   // //this works
@@ -65,7 +63,7 @@ export const LightsGlb = () => {
       const sunName = "Sun001";
       const sun = map3Dobj[sunName];
 
-      sun.intensity = aSunStrength;
+      sun.intensity = lc.aSunStrength;
       sun.castShadow = true;
 
       sun.shadow.mapSize.width = 2 ** 10;
@@ -93,21 +91,28 @@ export const LightsGlb = () => {
   }
   setupLights();
 
+  const black = new THREE.Color("#000000");
+  const backgroundColor = new THREE.Color(getStyleValue("--background-color"));
+
   return (
     <>
-      <ambientLight
+      {/* <ambientLight
         intensity={ambientStrength}
         color={getStyleValue("--background-color")}
+      /> */}
+      <hemisphereLight
+        skyColor={backgroundColor}
+        groundColor={black.lerp(backgroundColor, lc.groundColor)}
+        intensity={lc.ambientStrength}
       />
-      {/* <cameraHelper camera={sun?.shadow.camera}></cameraHelper> */}
       <primitive object={gltf.scene} />
-      {lightsHelpers ? <primitive object={debugShadow} /> : null}
-      {fog ? (
+      {lc.lightsHelpers ? <primitive object={debugShadow} /> : null}
+      {lc.fog ? (
         <fog
           attach="fog"
           color={getStyleValue("--background-color")}
-          far={fogInterval[1]}
-          near={fogInterval[0]}
+          far={lc.fogInterval[1]}
+          near={lc.fogInterval[0]}
         />
       ) : null}
     </>

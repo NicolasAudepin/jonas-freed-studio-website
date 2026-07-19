@@ -26,7 +26,7 @@ const HomePage = () => {
     <div
       className="page"
       style={{
-        pointerEvents: orbitControl ? "none" : "all",
+        pointerEvents: orbitControl ? "none" : "auto",
         // visibility: "hidden",
       }}
     >

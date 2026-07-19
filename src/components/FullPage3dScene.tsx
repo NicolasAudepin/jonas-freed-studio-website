@@ -20,6 +20,7 @@ import { LightsGlb } from "./LightsGlb";
 import { LerpDisplay } from "./ScrollPin";
 import { PostProcessingDA } from "./PostpProcessingDA";
 import { StaticGlb } from "./StaticGlb";
+import { Particles } from "./Particles";
 
 const LogoGlb = () => {
   const state = useThree();
@@ -90,6 +91,7 @@ export function SafeFullPageScene({ children }) {
 
           <CameraGlb />
           <LogoGlb />
+          <Particles />
           <LightsGlb />
           <StaticGlb path="glb/Scene1/archiV2.glb" />
           {/* <StaticGlb path="glb/Scene1/Basil.glb" /> */}
