@@ -18,7 +18,7 @@ import {
 
 export function Particles() {
   const cp = useControls("Particles", {
-    n: 8000,
+    n: 28000,
     min: [-50, -50, -50],
     max: [50, 50, 50],
     color: "#FF0000",
@@ -33,33 +33,44 @@ export function Particles() {
   }
   particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-  const uAmp = uniform(10.25);
-  const uFreq = uniform(3.0);
-  const uTime = uniform(0);
-
-  // uTime, positionLocal, normalLocal are built-in TSL nodes
-  const wave = sin(positionLocal.x.mul(uFreq).add(uTime));
-  const displaced = positionLocal.add(wave.mul(uAmp));
-
+  const customUniforms = {
+    uTime: { value: 0.0 },
+  };
   const particlesMaterial = new THREE.PointsMaterial({
     size: 0.1,
     sizeAttenuation: true,
     color: cp.color,
-    // fragmentNode: displaced,
   });
+  particlesMaterial.onBeforeCompile = (shader) => {
+    shader.uniforms.uTime = customUniforms.uTime;
+
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `
+      #include <begin_vertex>
+
+        // transformed.y = 0.0;
+        transformed.y = mod(uTime * 1.0 + transformed.y,100.0) ;
+    `,
+    );
+
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <common>",
+      `
+        #include <common>
+        uniform float uTime;
+    `,
+    );
+  };
 
   const particles = new THREE.Points(particleGeo, particlesMaterial);
-  // const particles = new THREE.Points(
-  //   new THREE.SphereGeometry(30, 10, 10),
-  //   particlesMaterial,
-  // );
 
   const clock = new THREE.Clock();
-  // useFrame(() => {
-  //   const elapsedTime = clock.getElapsedTime();
+  useFrame(() => {
+    const elapsedTime = clock.getElapsedTime();
 
-  //   uTime.value = elapsedTime;
-  // });
+    customUniforms.uTime.value = elapsedTime;
+  });
 
   return <primitive object={particles} />;
 }
